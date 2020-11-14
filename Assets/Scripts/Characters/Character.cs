@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : redd096.StateMachine
 {
     [Header("Important")]
     [SerializeField] protected float health = 100;
     [SerializeField] protected float speed = 300;
+    [SerializeField] bool moveWithAcceleration = true;
 
     [Header("Throw Ball")]
     [SerializeField] protected float pushForce = 5;
@@ -16,10 +17,11 @@ public class Character : MonoBehaviour
 
     protected bool isMovingRight = true;
 
+    public bool IsMovingRight => isMovingRight;
     public System.Action OnThrowBall { get; set; }
     public System.Action OnPickBall { get; set; }
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -27,7 +29,10 @@ public class Character : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         //set if moving right
-        isMovingRight = rb.velocity.x > 0;
+        if (isMovingRight == false && rb.velocity.x > 0)
+            isMovingRight = true;
+        else if (isMovingRight && rb.velocity.x < 0)
+            isMovingRight = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -45,16 +50,28 @@ public class Character : MonoBehaviour
                     HitByBall(ball);
                 }
             }
-            else
-            {
-                //pick ball if no ball in hand
-                if (currentBall == null)
-                    PickBall(ball);
-            }
+
+            //pick ball if no ball in hand
+            if (currentBall == null)
+                PickBall(ball);
         }
     }
 
     #region protected API
+
+    protected void Movement(Vector2 direction)
+    {
+        if (moveWithAcceleration)
+        {
+            //add force
+            rb.AddForce(direction * speed);
+        }
+        else
+        {
+            //set velocity
+            rb.velocity = direction * speed;
+        }
+    }
 
     protected void ThrowBall(Vector2 direction)
     {

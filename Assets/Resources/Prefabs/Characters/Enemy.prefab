@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 300
+  speed: 2
+  moveWithAcceleration: 1
   pushForce: 5
+  areasToMove: []
+  timeBetweenPatrols: 1
+  timeBeforeThrowBall: 1
 --- !u!1001 &6630595352479537939
 PrefabInstance:
   m_ObjectHideFlags: 0

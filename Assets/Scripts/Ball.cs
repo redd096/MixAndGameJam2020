@@ -20,6 +20,13 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    void FixedUpdate()
+    {
+        //if is sleeping, remove ball throwed
+        if (BallThrowed && rb.IsSleeping())
+            BallThrowed = false;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         //if hit something, remove ball throwed
@@ -31,11 +38,11 @@ public class Ball : MonoBehaviour
 
     public void PickBall()
     {
-        //deactive ball
-        gameObject.SetActive(false);
-
         //stop movement
         rb.velocity = Vector2.zero;
+
+        //deactive ball
+        gameObject.SetActive(false);
     }
 
     public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner)

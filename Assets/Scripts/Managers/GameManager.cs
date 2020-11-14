@@ -6,13 +6,13 @@
     public class GameManager : Singleton<GameManager>
     {
         public UIManager uiManager { get; private set; }
-        //public Player player { get; private set; }
+        public Player player { get; private set; }
 
         protected override void SetDefaults()
         {
             //get references
             uiManager = FindObjectOfType<UIManager>();
-            //player = FindObjectOfType<Player>();
+            player = FindObjectOfType<Player>();
             
             //if there is a player, lock mouse
             //if (player)

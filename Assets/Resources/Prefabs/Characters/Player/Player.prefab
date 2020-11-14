@@ -14,29 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 300
+  moveWithAcceleration: 1
   pushForce: 5
   canDash: 1
   dash: 180
   parry: 0.2
---- !u!95 &2622475596023708579
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367869537958343418}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &1740645933463379709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -63,6 +45,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &8002413439979042516
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367869537958343418}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4439567444243349688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70,6 +71,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 190391827014381343, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
     - target: {fileID: 779303661041656209, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
       value: 0
@@ -121,6 +126,14 @@ PrefabInstance:
     - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Size.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_FlipY
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name

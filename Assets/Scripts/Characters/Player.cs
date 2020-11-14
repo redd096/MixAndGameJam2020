@@ -19,7 +19,7 @@ public class Player : Character
         base.FixedUpdate();
 
         //movement (add force, so is not related to player direction, but only input)
-        Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        InputMovement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
     void Update()
@@ -44,13 +44,13 @@ public class Player : Character
 
     #region fixed update
 
-    void Movement(float horizontal, float vertical)
+    void InputMovement(float horizontal, float vertical)
     {
         //direction by input
-        Vector2 direction = new Vector2(horizontal, vertical);
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        //add force
-        rb.AddForce(direction * speed);
+        //move player
+        Movement(direction);
     }
 
     #endregion
@@ -102,7 +102,7 @@ public class Player : Character
 
     #endregion
 
-    #region general
+    #region hit by ball + parry
 
     protected override void HitByBall(Ball ball)
     {
