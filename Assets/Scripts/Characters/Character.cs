@@ -39,7 +39,7 @@ public class Character : redd096.StateMachine
 
     protected void ThrowBall(Vector2 direction)
     {
-        Vector2 ballPosition = new Vector2(transform.position.x, transform.position.y) + direction;
+        Vector2 ballPosition = new Vector2(transform.position.x, transform.position.y);
 
         //throw ball and remove reference
         currentBall.ThrowBall(direction * pushForce, ballPosition, this);

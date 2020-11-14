@@ -12,6 +12,9 @@ public class CharacterGraphics : MonoBehaviour
     [SerializeField] float speedToRun = 0.01f;
     [SerializeField] float speedToIdle = 0.05f;
 
+    [Header("Hand")]
+    [SerializeField] GameObject hand = default;
+
     protected Animator anim;
     SpriteRenderer sprite;
 
@@ -28,6 +31,9 @@ public class CharacterGraphics : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
         character = GetComponent<Character>();
         rb = GetComponent<Rigidbody2D>();
+
+        //default hand disabled
+        hand.SetActive(false);
 
         AddEvent();
     }
@@ -64,12 +70,12 @@ public class CharacterGraphics : MonoBehaviour
 
     void PickBall()
     {
-        anim?.SetTrigger("PickBall");
+        hand.SetActive(true);
     }
 
     void OnThrowBall()
     {
-        anim?.SetTrigger("ThrowBall");
+        hand.SetActive(false);
     }
 
     #endregion

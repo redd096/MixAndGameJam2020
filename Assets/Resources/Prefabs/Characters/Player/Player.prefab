@@ -18,6 +18,7 @@ MonoBehaviour:
   canDash: 1
   dash: 180
   parry: 0.2
+  delayParry: 0.1
 --- !u!61 &1740645933463379709
 BoxCollider2D:
   m_ObjectHideFlags: 0
