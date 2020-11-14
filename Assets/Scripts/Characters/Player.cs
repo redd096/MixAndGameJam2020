@@ -104,7 +104,7 @@ public class Player : Character
 
     #region hit by ball + parry
 
-    protected override void HitByBall(Ball ball)
+    public override void HitByBall(Ball ball)
     {
         //if parry timer and no ball in hand
         if (Time.time < parryTimer && currentBall == null)

@@ -12,7 +12,6 @@ public class Enemy : Character
 
     public BoxCollider2D[] AreasToMove => areasToMove;
     public float TimeBetweenPatrols => timeBetweenPatrols;
-    public Ball CurrentBall => currentBall;
     public float TimeBeforeThrowBall => timeBeforeThrowBall;
 
     public System.Action onRunning { get; set; }
@@ -29,6 +28,11 @@ public class Enemy : Character
         state?.Execution();
     }
 
+    protected override void FixedUpdate()
+    {
+        //do nothing
+    }
+
     #region public API
 
     public void StopMovement()
@@ -39,6 +43,12 @@ public class Enemy : Character
     public void EnemyMovement(Vector2 direction)
     {
         onRunning?.Invoke();
+
+        //set if moving right
+        if (isMovingRight == false && direction.x > 0.1f)
+            isMovingRight = true;
+        else if (isMovingRight && direction.x < -0.1f)
+            isMovingRight = false;
 
         //move enemy
         transform.position += new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;

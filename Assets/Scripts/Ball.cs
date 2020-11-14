@@ -10,7 +10,6 @@ public class Ball : MonoBehaviour
 
     public bool BallThrowed { get; private set; }
     public float Damage => damage;
-    public Character Owner => owner;
 
     Rigidbody2D rb;
     Character owner;
@@ -29,8 +28,29 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //if hit something, remove ball throwed
-        RemoveBallThrowed();
+        //if hit a character
+        Character character = collision.gameObject.GetComponentInParent<Character>();
+        if (character)
+        {
+            if (BallThrowed)
+            {
+                //check this character is not who throwed the ball
+                if (owner != character)
+                {
+                    //hit by ball
+                    RemoveBallThrowed();
+                    character.HitByBall(this);
+                }
+            }
+
+            //pick ball if no ball in hand (and this is not the ball we throwed)
+            if (owner != character && character.CurrentBall == null)
+                character.PickBall(this);
+        }
+
+        //if hit something that is not a character, remove ball throwed
+        if (collision.gameObject.GetComponentInParent<Character>() == null)
+            RemoveBallThrowed();
     }
 
     void RemoveBallThrowed()
@@ -39,7 +59,13 @@ public class Ball : MonoBehaviour
         if (BallThrowed)
         {
             BallThrowed = false;
-            gameObject.layer = LayerMask.NameToLayer("Ball");
+
+            //if there is already a owner, be sure to not ignore collision with him
+            if (owner != null)
+                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), false);
+
+            //remove owner
+            owner = null;
         }
     }
 
@@ -56,9 +82,15 @@ public class Ball : MonoBehaviour
 
     public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner)
     {
+        //if there is already a owner, be sure to not ignore collision with him
+        if(this.owner != null)
+        {
+            Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), this.owner.GetComponentInChildren<Collider2D>(), false);
+        }
+
         //set owner and set layer based on owner
         this.owner = owner;
-        gameObject.layer = owner is Player ? LayerMask.NameToLayer("No Hit Player") : LayerMask.NameToLayer("No Hit Enemy");
+        Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
 
         //set spawn position and active
         transform.position = spawnPosition;
@@ -71,11 +103,11 @@ public class Ball : MonoBehaviour
 
     public void Parry()
     {
-        //remove ball throwed
-        BallThrowed = false;
-
         //damage owner
         owner.KillByParry();
+
+        //remove ball throwed
+        RemoveBallThrowed();
     }
 
     #endregion
