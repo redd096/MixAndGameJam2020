@@ -79,10 +79,18 @@ public class Character : redd096.StateMachine
 
     public virtual void HitByBall(Ball ball)
     {
-        //can deflect if current ball != null
-        //but is not in Character, cause there is a collider on the ball
+        //if we have a ball in hand
+        if(currentBall)
+        {
+            //deflect if looking in direction of the ball (right or left)
+            Vector2 direction = ball.transform.position - transform.position;
+            if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+            {
+                return;
+            }
+        }
 
-        //get damage
+        //else get damage
         GetDamage(ball.Damage);
     }
 

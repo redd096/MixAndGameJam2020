@@ -44,7 +44,7 @@ public class Ball : MonoBehaviour
         }
 
         //if hit something that is not a character, remove ball throwed
-        if (collision.gameObject.GetComponentInParent<Character>() == null)
+        if (character == null)
             RemoveBallThrowed();
     }
 
