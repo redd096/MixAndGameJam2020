@@ -2,59 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+[AddComponentMenu("MixAndGameJam2020/Characters/Player")]
+public class Player : Character
 {
-    [Header("Important")]
-    [SerializeField] float health = 100;
-    [SerializeField] float speed = 5;
-
     [Header("Dash")]
     [SerializeField] bool canDash = true;
-    [SerializeField] float dash = 10;
+    [SerializeField] float dash = 180;
 
-    Rigidbody2D rb;
-    Ball currentBall;
+    [Header("Parry")]
+    [SerializeField] float parry = 0.2f;
 
-    bool movingRight = true;
+    float parryTimer;
 
-    void Start()
+    protected override void FixedUpdate()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        base.FixedUpdate();
 
-    void FixedUpdate()
-    {
+        //movement (add force, so is not related to player direction, but only input)
         Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
     void Update()
     {
+        //set player direction (if no input, is right or left. Necessary to dash or throw ball in oblique or vertical and not only right or left)
+        Vector2 playerDirection = SetPlayerDirection(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        //if can dash, dash in direction
         if (canDash)
         {
-            Dash(Input.GetButtonDown("Dash"), Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            Dash(Input.GetButtonDown("Dash"), playerDirection);
         }
-    }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        //if hit by a ball
-        Ball ball = collision.gameObject.GetComponent<Ball>();
-        if (ball)
-        {
-            if(ball.BallThrowed)
-            {
-                //hit by ball
-                HitByBall(ball);
-            }
-            else
-            {
-                //pick ball
-                PickBall(ball);
-            }
-        }
+        //throw ball or parry (if ball in hand or not)
+        if(currentBall)
+            InputThrowBall(Input.GetButtonDown("Action"), playerDirection);
+        else
+            StartParryTimer(Input.GetButtonDown("Action"));
     }
 
     #region private API
+
+    #region fixed update
 
     void Movement(float horizontal, float vertical)
     {
@@ -65,43 +53,86 @@ public class Player : MonoBehaviour
         rb.AddForce(direction * speed);
     }
 
-    void Dash(bool inputDash, float horizontal, float vertical)
+    #endregion
+
+    #region update
+
+    Vector2 SetPlayerDirection(float horizontal, float vertical)
     {
-        //if pressed input
-        if(inputDash)
+        //get direction by input
+        Vector2 playerDirection = new Vector2(horizontal, vertical);
+
+        //if no input, direction is right or left
+        if (Mathf.Abs(playerDirection.magnitude) <= Mathf.Epsilon)
         {
-            //get direction by input
-            Vector2 direction = new Vector2(horizontal, vertical);
+            playerDirection = isMovingRight ? Vector2.right : Vector2.left;
+        }
 
-            //if no input, direction is right or left
-            if(Mathf.Abs(direction.magnitude) <= Mathf.Epsilon)
-            {
-                direction = movingRight ? Vector2.right : Vector2.left;
-            }
+        return playerDirection;
+    }
 
+    void Dash(bool inputDash, Vector2 playerDirection)
+    {
+        //if press input
+        if (inputDash)
+        {
             //dash in direction
-            rb.AddForce(direction * dash);
+            rb.AddForce(playerDirection * dash, ForceMode2D.Impulse);
         }
     }
 
-    void HitByBall(Ball ball)
+    void InputThrowBall(bool inputThrow, Vector2 playerDirection)
     {
-        //can parry if no current ball
-        //else get damage
-
-
-        //can deflect if current ball != null
-        //but is not in Player, cause there is a collider on the ball
+        //if press input throw ball and there is a ball in hand
+        if (inputThrow && currentBall != null)
+        {
+            ThrowBall(playerDirection);
+        }
     }
 
-    void PickBall(Ball ball)
+    void StartParryTimer(bool inputParry)
     {
-        //save reference and pick ball
-        currentBall = ball;
-        ball.PickBall();
-
-        //TODO change sprite animation
+        //if press input and no ball in hand
+        if (inputParry && currentBall == null)
+        {
+            //set timer parry
+            parryTimer = Time.time + parry;
+        }
     }
+
+    #endregion
+
+    #region general
+
+    protected override void HitByBall(Ball ball)
+    {
+        //if parry timer and no ball in hand
+        if (Time.time < parryTimer && currentBall == null)
+        {
+            //parry if looking in direction of the ball (right or left)
+            Vector2 direction = ball.transform.position - transform.position;
+            if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+            {
+                Parry(ball);
+
+                return;
+            }
+        }
+
+        //else normal hit by ball
+        base.HitByBall(ball);
+    }
+
+    void Parry(Ball ball)
+    {
+        //parry
+        ball.Parry();
+
+        //pick ball
+        PickBall(ball);
+    }
+
+    #endregion
 
     #endregion
 }
