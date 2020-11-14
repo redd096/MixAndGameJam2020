@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 5
-  moveWithAcceleration: 1
-  pushForce: 15
+  pushForce: 2.5
   canDash: 1
   dash: 180
   parry: 0.2

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 2
-  moveWithAcceleration: 1
-  pushForce: 15
+  pushForce: 2.5
   areasToMove:
   - {fileID: 0}
   timeBetweenPatrols: 1

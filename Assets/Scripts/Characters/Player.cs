@@ -11,6 +11,7 @@ public class Player : Character
 
     [Header("Parry")]
     [SerializeField] float parry = 0.2f;
+    [SerializeField] float delayParry = 0.1f;
 
     float parryTimer;
 
@@ -92,8 +93,8 @@ public class Player : Character
 
     void StartParryTimer(bool inputParry)
     {
-        //if press input and no ball in hand
-        if (inputParry && currentBall == null)
+        //if press input and no ball in hand, and parry is not in delay
+        if (inputParry && currentBall == null && Time.time > parryTimer + delayParry)
         {
             //set timer parry
             parryTimer = Time.time + parry;

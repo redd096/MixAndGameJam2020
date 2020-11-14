@@ -34,17 +34,12 @@ public class Ball : MonoBehaviour
         {
             if (BallThrowed)
             {
-                //check this character is not who throwed the ball
-                if (owner != character)
-                {
-                    //hit by ball
-                    RemoveBallThrowed();
-                    character.HitByBall(this);
-                }
+                RemoveBallThrowed();
+                character.HitByBall(this);
             }
 
-            //pick ball if no ball in hand (and this is not the ball we throwed)
-            if (owner != character && character.CurrentBall == null)
+            //pick ball if no ball in hand
+            if (character.CurrentBall == null)
                 character.PickBall(this);
         }
 
@@ -63,9 +58,6 @@ public class Ball : MonoBehaviour
             //if there is already a owner, be sure to not ignore collision with him
             if (owner != null)
                 Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), false);
-
-            //remove owner
-            owner = null;
         }
     }
 

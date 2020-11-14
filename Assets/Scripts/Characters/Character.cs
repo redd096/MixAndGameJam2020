@@ -65,7 +65,7 @@ public class Character : redd096.StateMachine
 
     void Die()
     {
-        //TODO die
+        Debug.Log(name + " dead");
     }
 
     #endregion
