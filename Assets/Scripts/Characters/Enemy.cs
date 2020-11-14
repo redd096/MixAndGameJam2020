@@ -15,6 +15,9 @@ public class Enemy : Character
     public Ball CurrentBall => currentBall;
     public float TimeBeforeThrowBall => timeBeforeThrowBall;
 
+    public System.Action onRunning { get; set; }
+    public System.Action onIdle { get; set; }
+
     void Start()
     {
         //start patrol
@@ -28,8 +31,15 @@ public class Enemy : Character
 
     #region public API
 
+    public void StopMovement()
+    {
+        onIdle?.Invoke();
+    }
+
     public void EnemyMovement(Vector2 direction)
     {
+        onRunning?.Invoke();
+
         //move enemy
         transform.position += new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
     }

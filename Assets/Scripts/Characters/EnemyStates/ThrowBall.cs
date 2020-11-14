@@ -17,6 +17,7 @@ public class ThrowBall : State
         base.Enter();
 
         enemy = stateMachine as Enemy;
+        enemy.StopMovement();
 
         //start coroutine
         if (wait_coroutine == null)

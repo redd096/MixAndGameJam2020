@@ -5,6 +5,7 @@ using redd096;
 
 public class Wait : State
 {
+    Enemy enemy;
     Coroutine wait_coroutine;
 
     public Wait(StateMachine stateMachine) : base(stateMachine)
@@ -15,15 +16,16 @@ public class Wait : State
     {
         base.Enter();
 
+        enemy = stateMachine as Enemy;
+        enemy.StopMovement();
+
         //start coroutine
-        if(wait_coroutine == null)
+        if (wait_coroutine == null)
             wait_coroutine = stateMachine.StartCoroutine(Wait_Coroutine());
     }
 
     IEnumerator Wait_Coroutine()
     {
-        Enemy enemy = stateMachine as Enemy;
-
         //wait
         yield return new WaitForSeconds(enemy.TimeBetweenPatrols);
 

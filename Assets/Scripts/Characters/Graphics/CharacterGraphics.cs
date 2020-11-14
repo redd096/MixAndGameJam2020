@@ -5,11 +5,18 @@ using UnityEngine;
 [AddComponentMenu("MixAndGameJam2020/Characters/Character Graphics")]
 public class CharacterGraphics : MonoBehaviour
 {
-    Animator anim;
+    [Header("Speed")]
+    [SerializeField] float speedToRun = 0.01f;
+    [SerializeField] float speedToIdle = 0.05f;
+
+    protected Animator anim;
     SpriteRenderer sprite;
 
-    Character character;
+    protected Character character;
     Rigidbody2D rb;
+
+    bool isRunning;
+    float previousSpeed;
 
     void Start()
     {
@@ -32,19 +39,19 @@ public class CharacterGraphics : MonoBehaviour
         //flip or not
         sprite.flipX = !character.IsMovingRight;
 
-        //set speed
-        anim?.SetFloat("Speed", rb.velocity.magnitude);
+        //set run animation
+        Run();
     }
 
     #region events
 
-    void AddEvent()
+    protected virtual void AddEvent()
     {
         character.OnPickBall += PickBall;
         character.OnThrowBall += OnThrowBall;
     }
 
-    void RemoveEvent()
+    protected virtual void RemoveEvent()
     {
         character.OnPickBall -= PickBall;
         character.OnThrowBall -= OnThrowBall;
@@ -61,4 +68,20 @@ public class CharacterGraphics : MonoBehaviour
     }
 
     #endregion
+
+    protected virtual void Run()
+    {
+        if (isRunning && rb.velocity.magnitude < speedToIdle && rb.velocity.magnitude < previousSpeed)
+        {
+            anim?.SetBool("Running", false);
+            isRunning = false;
+            previousSpeed = rb.velocity.magnitude;
+        }
+        else if (!isRunning && rb.velocity.magnitude > speedToRun && rb.velocity.magnitude > previousSpeed)
+        {
+            anim?.SetBool("Running", true);
+            isRunning = true;
+            previousSpeed = rb.velocity.magnitude;
+        }
+    }
 }

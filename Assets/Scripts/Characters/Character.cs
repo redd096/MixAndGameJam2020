@@ -29,9 +29,9 @@ public class Character : redd096.StateMachine
     protected virtual void FixedUpdate()
     {
         //set if moving right
-        if (isMovingRight == false && rb.velocity.x > Mathf.Epsilon)
+        if (isMovingRight == false && rb.velocity.x > 0.1f)
             isMovingRight = true;
-        else if (isMovingRight && rb.velocity.x < Mathf.Epsilon)
+        else if (isMovingRight && rb.velocity.x < -0.1f)
             isMovingRight = false;
     }
 
@@ -51,8 +51,8 @@ public class Character : redd096.StateMachine
                 }
             }
 
-            //pick ball if no ball in hand
-            if (currentBall == null)
+            //pick ball if no ball in hand (and this is not the ball we throwed)
+            if (ball.Owner != this && currentBall == null)
                 PickBall(ball);
         }
     }

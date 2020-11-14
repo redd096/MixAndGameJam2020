@@ -23,15 +23,24 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         //if is sleeping, remove ball throwed
-        if (BallThrowed && rb.IsSleeping())
-            BallThrowed = false;
+        if (rb.IsSleeping())
+            RemoveBallThrowed();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         //if hit something, remove ball throwed
+        RemoveBallThrowed();
+    }
+
+    void RemoveBallThrowed()
+    {
+        //remove ball throwed
         if (BallThrowed)
+        {
             BallThrowed = false;
+            gameObject.layer = LayerMask.NameToLayer("Ball");
+        }
     }
 
     #region public API
@@ -47,8 +56,9 @@ public class Ball : MonoBehaviour
 
     public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner)
     {
-        //set owner
+        //set owner and set layer based on owner
         this.owner = owner;
+        gameObject.layer = owner is Player ? LayerMask.NameToLayer("No Hit Player") : LayerMask.NameToLayer("No Hit Enemy");
 
         //set spawn position and active
         transform.position = spawnPosition;
