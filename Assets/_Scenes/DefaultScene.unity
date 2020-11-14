@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 521225703}
   - component: {fileID: 521225702}
   - component: {fileID: 521225701}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Center Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
