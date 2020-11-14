@@ -476,10 +476,6 @@ PrefabInstance:
       propertyPath: areasToMove.Array.data[0]
       value: 
       objectReference: {fileID: 2009761407}
-    - target: {fileID: -217606225830217147, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
-      propertyPath: pushForce
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 218956014616330042, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -2763,18 +2759,6 @@ PrefabInstance:
     - target: {fileID: 266389332474661434, guid: ba6b6d0b31093684ebdff3b48edcd79a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801052742224118177, guid: ba6b6d0b31093684ebdff3b48edcd79a, type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801052742224118177, guid: ba6b6d0b31093684ebdff3b48edcd79a, type: 3}
-      propertyPath: moveWithAcceleration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801052742224118177, guid: ba6b6d0b31093684ebdff3b48edcd79a, type: 3}
-      propertyPath: pushForce
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6b6d0b31093684ebdff3b48edcd79a, type: 3}

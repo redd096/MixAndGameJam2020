@@ -7,7 +7,6 @@ public class Character : redd096.StateMachine
     [Header("Important")]
     [SerializeField] protected float health = 100;
     [SerializeField] protected float speed = 300;
-    [SerializeField] bool moveWithAcceleration = true;
 
     [Header("Throw Ball")]
     [SerializeField] protected float pushForce = 5;
@@ -37,20 +36,6 @@ public class Character : redd096.StateMachine
     }
 
     #region protected API
-
-    protected void Movement(Vector2 direction)
-    {
-        if (moveWithAcceleration)
-        {
-            //add force
-            rb.AddForce(direction * speed);
-        }
-        else
-        {
-            //set velocity
-            rb.velocity = direction * speed;
-        }
-    }
 
     protected void ThrowBall(Vector2 direction)
     {

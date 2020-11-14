@@ -54,7 +54,7 @@ public class Patrol : State
         //else move to point
         else
         {
-            enemy.EnemyMovement(direction.normalized);
+            enemy.Movement(direction.normalized);
             previousDirection = direction;  //save new direction
         }
     }

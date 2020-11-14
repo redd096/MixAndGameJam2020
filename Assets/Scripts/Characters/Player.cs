@@ -19,13 +19,13 @@ public class Player : Character
         base.FixedUpdate();
 
         //movement (add force, so is not related to player direction, but only input)
-        InputMovement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Movement(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     void Update()
     {
         //set player direction (if no input, is right or left. Necessary to dash or throw ball in oblique or vertical and not only right or left)
-        Vector2 playerDirection = SetPlayerDirection(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 playerDirection = SetPlayerDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         //if can dash, dash in direction
         if (canDash)
@@ -44,13 +44,13 @@ public class Player : Character
 
     #region fixed update
 
-    void InputMovement(float horizontal, float vertical)
+    void Movement(float horizontal, float vertical)
     {
         //direction by input
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        //move player
-        Movement(direction);
+        //set velocity
+        rb.velocity = direction * speed;
     }
 
     #endregion
@@ -125,6 +125,8 @@ public class Player : Character
 
     void Parry(Ball ball)
     {
+        Debug.Log("parry riuscito");
+
         //parry
         ball.Parry();
 

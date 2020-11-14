@@ -40,7 +40,7 @@ public class Enemy : Character
         onIdle?.Invoke();
     }
 
-    public void EnemyMovement(Vector2 direction)
+    public void Movement(Vector2 direction)
     {
         onRunning?.Invoke();
 
