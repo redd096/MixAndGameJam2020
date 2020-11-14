@@ -15,10 +15,10 @@
             player = FindObjectOfType<Player>();
             
             //if there is a player, lock mouse
-            //if (player)
-            //{
-            //    FindObjectOfType<SceneLoader>().ResumeGame();
-            //}
+            if (player)
+            {
+                FindObjectOfType<SceneLoader>().ResumeGame();
+            }
         }
 
         void Update()
@@ -31,6 +31,16 @@
                 else
                     SceneLoader.instance.PauseGame();
             }
+        }
+
+        public void LoadURL(string url)
+        {
+            Application.OpenURL("https://eventhorizonschool.itch.io/cube-invaders");
+        }
+
+        public void SetVolume(float value)
+        {
+            AudioListener.volume = value;
         }
     }
 }
