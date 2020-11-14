@@ -62,5 +62,16 @@ public class Enemy : Character
         ThrowBall(direction.normalized);
     }
 
+    public void LookToPlayer()
+    {
+        Vector3 direction = redd096.GameManager.instance.player.transform.position - transform.position;
+
+        //set if moving right based on direction to player
+        if (isMovingRight == false && direction.x > 0.1f)
+            isMovingRight = true;
+        else if (isMovingRight && direction.x < -0.1f)
+            isMovingRight = false;
+    }
+
     #endregion
 }

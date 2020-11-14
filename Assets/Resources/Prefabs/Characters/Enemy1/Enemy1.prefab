@@ -31,6 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18acb5fdfe7c4a4c82c452680bc8317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startFlip: 1
   speedToRun: 0.01
   speedToIdle: 0.05
 --- !u!61 &1740645933463379709

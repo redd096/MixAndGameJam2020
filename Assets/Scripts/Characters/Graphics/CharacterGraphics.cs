@@ -5,6 +5,9 @@ using UnityEngine;
 [AddComponentMenu("MixAndGameJam2020/Characters/Character Graphics")]
 public class CharacterGraphics : MonoBehaviour
 {
+    [Header("Flip")]
+    [SerializeField] bool startFlip = false;
+
     [Header("Speed")]
     [SerializeField] float speedToRun = 0.01f;
     [SerializeField] float speedToIdle = 0.05f;
@@ -38,6 +41,8 @@ public class CharacterGraphics : MonoBehaviour
     {
         //flip or not
         sprite.flipX = !character.IsMovingRight;
+        if (startFlip == true) 
+            sprite.flipX = !sprite.flipX;
 
         //set run animation
         Run();
