@@ -29,9 +29,9 @@ public class Character : redd096.StateMachine
     protected virtual void FixedUpdate()
     {
         //set if moving right
-        if (isMovingRight == false && rb.velocity.x > Mathf.Epsilon)
+        if (isMovingRight == false && rb.velocity.x > 0.05f)
             isMovingRight = true;
-        else if (isMovingRight && rb.velocity.x < Mathf.Epsilon)
+        else if (isMovingRight && rb.velocity.x < -0.05f)
             isMovingRight = false;
     }
 
