@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8186802831597575896}
   - component: {fileID: 5147795829926026241}
   - component: {fileID: 7030714608253579419}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4826013112956150933}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5132714887362035124}
   - component: {fileID: 7716615717567350908}
   - component: {fileID: 5075309781735929151}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Max Parry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 2
-  pushForce: 2.5
+  pushForce: 0.6
   areasToMove:
   - {fileID: 0}
   timeBetweenPatrols: 1
@@ -312,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2855903144993991932}
   - component: {fileID: 2995761927309469783}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 2703932968666792156}
   - component: {fileID: 7368324782169501978}
   - component: {fileID: 4116188449423132809}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 1479076321418183011}
   - component: {fileID: 2756873767938984974}
   - component: {fileID: 9034174303733521147}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 8701587349449120200}
   - component: {fileID: 6833293551800961123}
   - component: {fileID: 1785658912424200536}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 5503015008968725062}
   - component: {fileID: 1988014519537997501}
   - component: {fileID: 1482116101157638923}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Min Parry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5328006392093217506}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,6 +740,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
+    - target: {fileID: 274766264804545365, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 779303661041656209, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
       value: 0
@@ -802,7 +806,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1145507413475323656, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756222530669838310, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 36bd4c304bd539a418762963372cfb2c, type: 3}
+    - target: {fileID: 1756222530669838310, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422959700094307120, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
@@ -810,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
@@ -818,7 +834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -863,6 +879,10 @@ PrefabInstance:
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870384716455298181, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6528747615213841547, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_RootOrder
