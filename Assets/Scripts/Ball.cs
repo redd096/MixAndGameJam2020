@@ -123,12 +123,14 @@ public class Ball : MonoBehaviour
         //if there is already a owner, be sure to not ignore collision with him
         if(this.owner != null)
         {
-            Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), this.owner.GetComponentInChildren<Collider2D>(), false);
+            if(this.owner.GetComponentInChildren<Collider2D>() != null)
+                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), this.owner.GetComponentInChildren<Collider2D>(), false);
         }
 
         //set owner and set layer based on owner
         this.owner = owner;
-        Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
+        if (owner.GetComponentInChildren<Collider2D>() != null)
+            Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
 
         //set spawn position and active
         transform.position = spawnPosition;
