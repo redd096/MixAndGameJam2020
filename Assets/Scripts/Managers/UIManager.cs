@@ -37,22 +37,26 @@
 
         public void ShowHealthBoss(bool active)
         {
-            healthBoss.gameObject.SetActive(active);
+            if(healthBoss != null)
+                healthBoss.gameObject.SetActive(active);
         }
 
         public void SetHealthBoss(float value)
         {
-            healthBoss.value = value;
+            if (healthBoss != null)
+                healthBoss.value = value;
         }
 
         public void ShowTimerText(bool active)
         {
-            timerText.gameObject.SetActive(active);
+            if (timerText != null)
+                timerText.gameObject.SetActive(active);
         }
 
         public void SetTimerText(string text)
         {
-            timerText.text = text;
+            if (timerText != null)
+                timerText.text = text;
         }
     }
 }
