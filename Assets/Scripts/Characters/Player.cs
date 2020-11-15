@@ -5,10 +5,6 @@ using UnityEngine;
 [AddComponentMenu("MixAndGameJam2020/Characters/Player")]
 public class Player : Character
 {
-    [Header("Dash")]
-    [SerializeField] bool canDash = true;
-    [SerializeField] float dash = 180;
-
     [Header("Parry")]
     [SerializeField] float parry = 0.2f;
     [SerializeField] float delayParry = 0.1f;
@@ -27,12 +23,6 @@ public class Player : Character
     {
         //set player direction (if no input, is right or left. Necessary to dash or throw ball in oblique or vertical and not only right or left)
         Vector2 playerDirection = SetPlayerDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        //if can dash, dash in direction
-        if (canDash)
-        {
-            Dash(Input.GetButtonDown("Dash"), playerDirection);
-        }
 
         //throw ball or parry (if ball in hand or not)
         if(currentBall)
@@ -72,16 +62,6 @@ public class Player : Character
         }
 
         return playerDirection;
-    }
-
-    void Dash(bool inputDash, Vector2 playerDirection)
-    {
-        //if press input
-        if (inputDash)
-        {
-            //dash in direction
-            rb.AddForce(playerDirection * dash, ForceMode2D.Impulse);
-        }
     }
 
     void InputThrowBall(bool inputThrow, Vector2 playerDirection)
