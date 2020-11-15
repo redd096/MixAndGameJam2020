@@ -20,7 +20,6 @@ public class Ball : MonoBehaviour
 
     Rigidbody2D rb;
     Character owner;
-    Character owner_Temp;
 
     void OnEnable()
     {
@@ -41,7 +40,7 @@ public class Ball : MonoBehaviour
         //if is sleeping, remove ball throwed
         if (rb.IsSleeping())
         {
-            RemoveBallThrowed();
+            RemoveBallThrowed(true);
             HideTrail();
         }
     }
@@ -53,12 +52,12 @@ public class Ball : MonoBehaviour
         if (character)
         {
             //no hit allies
-            if ((owner_Temp is Player && character is Player) || (owner_Temp is Enemy && character is Enemy))
+            if ((owner is Player && character is Player) || (owner is Enemy && character is Enemy))
                 return;
 
             if (BallThrowed)
             {
-                RemoveBallThrowed();
+                RemoveBallThrowed(false);
 
                 //do damage (or deflect or parry)
                 character.HitByBall(this, isParryable);
@@ -72,23 +71,24 @@ public class Ball : MonoBehaviour
         //if hit something that is not a character, remove ball throwed
         if (character == null)
         {
-            RemoveBallThrowed();
+            RemoveBallThrowed(true);
         }
     }
 
     #region private API
 
-    void RemoveBallThrowed()
+    void RemoveBallThrowed(bool removeOwner)
     {
         //remove ball throwed
         if (BallThrowed)
         {
             BallThrowed = false;
 
-            owner_Temp = null;
-
             //if there is already a owner, be sure to not ignore collision with him
             IgnoreCollision(false);
+
+            if (removeOwner)
+                owner = null;
         }
     }
 
@@ -170,7 +170,7 @@ public class Ball : MonoBehaviour
         owner.KillByParry(parryDamage);
 
         //remove ball throwed
-        RemoveBallThrowed();
+        RemoveBallThrowed(false);
     }
 
     #endregion
