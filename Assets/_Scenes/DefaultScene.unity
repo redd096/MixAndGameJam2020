@@ -1611,6 +1611,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPosition: {x: 0, y: 1, z: -10}
   doorsToActivate: []
+  objectsToDeactivate:
+  - {fileID: 1040694386}
+  - {fileID: 2002519671}
+  - {fileID: 132645308}
 --- !u!1001 &999277521
 PrefabInstance:
   m_ObjectHideFlags: 0

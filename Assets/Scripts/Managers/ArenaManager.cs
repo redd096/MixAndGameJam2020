@@ -9,6 +9,7 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Doors")]
     [SerializeField] Door[] doorsToActivate = default;
+    [SerializeField] GameObject[] objectsToDeactivate = default;
 
     public Vector3 CameraPosition => cameraPosition;
 
@@ -53,6 +54,12 @@ public class ArenaManager : MonoBehaviour
         foreach (Door door in doorsToActivate)
         {
             door.gameObject.SetActive(true);
+        }
+
+        //deactive every object in objectsToDeactivate
+        foreach(GameObject go in objectsToDeactivate)
+        {
+            go.SetActive(false);
         }
     }
 
