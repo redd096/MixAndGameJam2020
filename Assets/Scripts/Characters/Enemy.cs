@@ -156,4 +156,12 @@ public class Enemy : Character
     }
 
     #endregion
+
+    protected override void Die()
+    {
+        base.Die();
+
+        //call enemy dead on active arena
+        FindObjectOfType<ArenaManager>().EnemyDead(this);
+    }
 }
