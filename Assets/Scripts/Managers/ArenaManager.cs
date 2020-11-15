@@ -99,8 +99,9 @@ public class ArenaManager : MonoBehaviour
             redd096.GameManager.instance.uiManager.ShowTimerText(false);
 
             //play sound
-            if (GetComponent<AudioSource>())
-                GetComponent<AudioSource>().Play();
+            AudioSource audio = GetComponent<AudioSource>();
+            if (audio)
+                audio.Play();
         }
 
         EndTimer();

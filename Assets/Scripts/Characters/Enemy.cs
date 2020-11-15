@@ -78,9 +78,6 @@ public class Enemy : Character
                     float min = (possibleParry.minParry.localPosition.x + widthSlider /2) / widthSlider;
                     float max = (possibleParry.maxParry.localPosition.x + widthSlider / 2) / widthSlider;
 
-                    Debug.Log("min local pos: " + possibleParry.minParry.localPosition.x + " - max local pos: " + possibleParry.maxParry.localPosition.x);
-                    Debug.Log("min: " + min + " - max: " + max + " - parry: " + parry);
-
                     if (parry >= min && parry <= max)
                     {
                         Parry(ball);

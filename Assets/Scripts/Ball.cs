@@ -148,9 +148,6 @@ public class Ball : MonoBehaviour
         this.owner = owner;
         IgnoreCollision(true);
 
-        //play sound
-        GetComponent<AudioSource>().Play();
-
         //set spawn position and active
         transform.position = spawnPosition;
         gameObject.SetActive(true);
@@ -161,6 +158,11 @@ public class Ball : MonoBehaviour
         BallThrowed = true;
         this.isParryable = isParryable;
         rb.AddForce(force, ForceMode2D.Impulse);
+
+        //play sound
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio)
+            audio.Play();
     }
 
     public void Parry()
