@@ -10,6 +10,9 @@
         [SerializeField] GameObject pauseMenu = default;
         [SerializeField] GameObject endMenu = default;
 
+        [Header("Timer")]
+        [SerializeField] Text timerText = default;
+
         [Header("Boss")]
         [SerializeField] Slider healthBoss = default;
 
@@ -40,6 +43,16 @@
         public void SetHealthBoss(float value)
         {
             healthBoss.value = value;
+        }
+
+        public void ShowTimerText(bool active)
+        {
+            timerText.gameObject.SetActive(active);
+        }
+
+        public void SetTimerText(string text)
+        {
+            timerText.text = text;
         }
     }
 }

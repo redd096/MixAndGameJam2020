@@ -33,7 +33,7 @@ public class Door : MonoBehaviour
                 player.enabled = false;
 
                 //move camera with smooth
-                moveToNextArena = StartCoroutine(MoveCamera(player));
+                moveToNextArena = StartCoroutine(MoveCamera());
 
                 //deactive old arena
                 FindObjectOfType<ArenaManager>().gameObject.SetActive(false);
@@ -47,7 +47,7 @@ public class Door : MonoBehaviour
         }
     }
 
-    IEnumerator MoveCamera(Player player)
+    IEnumerator MoveCamera()
     {
         //get camera and start position
         Transform cam = Camera.main.transform;
@@ -62,9 +62,6 @@ public class Door : MonoBehaviour
 
             yield return null;
         }
-
-        //active player
-        player.enabled = true;
 
         moveToNextArena = null;
     }

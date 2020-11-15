@@ -11,9 +11,13 @@ public class ArenaManager : MonoBehaviour
     [SerializeField] GameObject[] toActivate = default;
     [SerializeField] GameObject[] objectsToDeactivate = default;
 
+    [Header("Timer")]
+    [SerializeField] int timer = 3;
+
     public Vector3 CameraPosition => cameraPosition;
 
     List<Enemy> enemiesInScene = new List<Enemy>();
+    Coroutine timerCoroutine;
 
     void OnEnable()
     {
@@ -25,11 +29,26 @@ public class ArenaManager : MonoBehaviour
         {
             enemiesInScene.Add(enemy);
 
+            //deactive enemy at start
+            enemy.enabled = false;
+
             //check if there is a boss and show health bar
             if(enemy.IsBoss)
             {
                 redd096.GameManager.instance.uiManager.ShowHealthBoss(true);
             }
+        }
+
+        //if there are enemies in scene, start timer
+        if(enemiesInScene.Count > 0)
+        {
+            if (timerCoroutine == null)
+                timerCoroutine = StartCoroutine(TimerCoroutine());
+        }
+        //else active player
+        else
+        {
+            redd096.GameManager.instance.player.enabled = true;
         }
     }
 
@@ -39,6 +58,38 @@ public class ArenaManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         enemy.gameObject.SetActive(false);
+    }
+
+    IEnumerator TimerCoroutine()
+    {
+        //show timer
+        redd096.GameManager.instance.uiManager.SetTimerText(timer.ToString("F0"));
+        redd096.GameManager.instance.uiManager.ShowTimerText(true);
+
+        for(int i = timer; i >= 0; i--)
+        {
+            //wait one second
+            yield return new WaitForSeconds(1);
+
+            //if 0, hide timer
+            if(i == 0)
+            {
+                redd096.GameManager.instance.uiManager.ShowTimerText(false);
+            }
+            //else set text
+            {
+                redd096.GameManager.instance.uiManager.SetTimerText(i.ToString("F0"));
+            }
+        }
+
+        //enable player
+        redd096.GameManager.instance.player.enabled = true;
+
+        //enable every enemy
+        foreach(Enemy enemy in enemiesInScene)
+        {
+            enemy.enabled = true;
+        }
     }
 
     #region public API
