@@ -17,7 +17,7 @@
 
         public void LoadURL(string url)
         {
-            Application.OpenURL("https://eventhorizonschool.itch.io/cube-invaders");
+            Application.OpenURL(url);
         }
 
         public void SetVolume(float value)

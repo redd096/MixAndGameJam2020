@@ -36,5 +36,10 @@
         {
             healthBoss.gameObject.SetActive(active);
         }
+
+        public void SetHealthBoss(float value)
+        {
+            healthBoss.value = value;
+        }
     }
 }

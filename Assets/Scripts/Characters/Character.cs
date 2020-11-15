@@ -52,6 +52,16 @@ public class Character : redd096.StateMachine
         OnThrowBall?.Invoke();
     }
 
+    protected virtual void GetDamage(float damage)
+    {
+        //remove health
+        health -= damage;
+
+        //check death
+        if (health <= 0)
+            Die();
+    }
+
     protected virtual void Die()
     {
         //do only one time
@@ -76,20 +86,6 @@ public class Character : redd096.StateMachine
 
         //call event
         OnParry?.Invoke();
-    }
-
-    #endregion
-
-    #region private API
-
-    void GetDamage(float damage)
-    {
-        //remove health
-        health -= damage;
-
-        //check death
-        if (health <= 0)
-            Die();
     }
 
     #endregion

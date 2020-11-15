@@ -32,8 +32,14 @@ public class Enemy : Character
     public float parry { get; private set; }
     Coroutine parry_Coroutine;
 
+    float maxHealth;
+
     void Start()
     {
+        //set max health for boss
+        if (isBoss)
+            maxHealth = health;
+
         //start patrol
         SetState(new Patrol(this));
     }
@@ -157,6 +163,15 @@ public class Enemy : Character
     }
 
     #endregion
+
+    protected override void GetDamage(float damage)
+    {
+        base.GetDamage(damage);
+
+        //update boss health bar
+        if (isBoss)
+            redd096.GameManager.instance.uiManager.SetHealthBoss(health / maxHealth);
+    }
 
     protected override void Die()
     {
