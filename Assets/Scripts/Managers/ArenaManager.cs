@@ -13,7 +13,6 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Timer")]
     [SerializeField] int timer = 3;
-    [SerializeField] AudioSource audioSource = default;
 
     public Transform CameraPosition => cameraPosition;
 
@@ -99,7 +98,7 @@ public class ArenaManager : MonoBehaviour
         }
 
         //play sound
-        audioSource.Play();
+        GetComponent<AudioSource>().Play();
     }
 
     #endregion
