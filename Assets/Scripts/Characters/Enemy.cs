@@ -60,10 +60,11 @@ public class Enemy : Character
 
     public void EnemyThrowBall()
     {
+        //if is boss, there a percentage is not parryable
+        bool isParryable = isBoss ? Random.value > percentageNotParryable / 100 : true;
+
         //throw to player
         Vector2 direction = redd096.GameManager.instance.player.transform.position - transform.position;
-
-        bool isParryable = isBoss ? Random.Range(0, 100) > percentageNotParryable : true;
 
         ThrowBall(direction.normalized, isParryable);
     }

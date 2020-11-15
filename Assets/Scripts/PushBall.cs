@@ -41,7 +41,7 @@ public class PushBall : MonoBehaviour
         yield return new WaitForSeconds(timeBeforePush);
         
         //push right or left
-        Vector2 direction = Random.Range(0, 2) <= 0 ? Vector2.left : Vector2.right;
+        Vector2 direction = Random.value < 0.5f ? Vector2.left : Vector2.right;
         ball.GetComponent<Rigidbody2D>().AddForce(direction * pushForce, ForceMode2D.Impulse);
 
         Debug.Log("ball pushata dal centro");
