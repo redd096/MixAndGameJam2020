@@ -25,6 +25,7 @@ public class Door : MonoBehaviour
         {
             //throw ball and deactive player
             player.ThrowBall();
+            player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             player.enabled = false;
 
             //move camera with smooth
