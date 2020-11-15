@@ -20,6 +20,8 @@
         {
             PauseMenu(false);
             EndMenu(false);
+            ShowHealthBoss(false);
+            ShowTimerText(false);
         }
 
         public void PauseMenu(bool active)
