@@ -84,10 +84,13 @@
 
         public void AddPowerUp(PowerUp powerUp)
         {
-            if (imagesForPowerUp == null || imagesForPowerUp.Length <= powerUps.Count || imagesForPowerUp[powerUps.Count -1] == null)
-                return;
+            Image image = null;
 
-            Image image = imagesForPowerUp[powerUps.Count - 1];
+            for(int i = 0; i < imagesForPowerUp.Length; i++)
+            {
+                if (imagesForPowerUp[i].gameObject.activeInHierarchy == false)
+                    image = imagesForPowerUp[i];
+            }
 
             //set image
             image.sprite = powerUp.SpritePowerUp;
@@ -106,7 +109,23 @@
                 //remove from dictionary
                 powerUps.Remove(powerUp);
                 image.gameObject.SetActive(false);
-            }    
+            }
+
+            for(int i = 0; i < imagesForPowerUp.Length; i++)
+            {
+                if(imagesForPowerUp[i].gameObject.activeInHierarchy == false)
+                {
+                    for(int j = i; j < imagesForPowerUp.Length; j++)
+                    {
+                        if(imagesForPowerUp[j].gameObject.activeInHierarchy)
+                        {
+                            imagesForPowerUp[i].sprite = imagesForPowerUp[j].sprite;
+                            imagesForPowerUp[i].gameObject.SetActive(true);
+                            imagesForPowerUp[j].gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
         }
     }
 }
