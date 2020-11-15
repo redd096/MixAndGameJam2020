@@ -80,9 +80,9 @@ public class Patrol : State
         float randomY = Random.Range(min.y, max.y);
         Vector2 randomPoint = new Vector2(randomX, randomY);
 
-        //if there is another collider over this one, can't reach point
+        //if there is another collider over this one, can't reach point, repeat
         if (Physics2D.OverlapBoxAll(randomPoint, Vector2.one, 0).Length > 1)
-            return enemy.transform.position;
+            return SetRandomPoint();
 
         //return random point
         return randomPoint;

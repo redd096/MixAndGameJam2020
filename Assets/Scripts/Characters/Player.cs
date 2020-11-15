@@ -39,6 +39,8 @@ public class Player : Character
             InputThrowBall(Input.GetButtonDown("Action"), playerDirection);
         else
             StartParryTimer(Input.GetButtonDown("Action"));
+
+        PauseGame(Input.GetButtonDown("Pause"));
     }
 
     #region private API
@@ -101,6 +103,18 @@ public class Player : Character
         }
     }
 
+    void PauseGame(bool inputPause)
+    {
+        //if press escape or start, pause or resume game
+        if (inputPause)
+        {
+            if (Time.timeScale <= 0)
+                redd096.SceneLoader.instance.ResumeGame();
+            else
+                redd096.SceneLoader.instance.PauseGame();
+        }
+    }
+
     #endregion
 
     #region hit by ball + parry
@@ -146,6 +160,7 @@ public class Player : Character
 
         Time.timeScale = 0;
         redd096.GameManager.instance.uiManager.EndMenu(true);
+        enabled = false;
     }
 
     #endregion

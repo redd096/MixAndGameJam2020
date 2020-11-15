@@ -15,18 +15,6 @@
             player = FindObjectOfType<Player>();
         }
 
-        void Update()
-        {
-            //if press escape or start, pause or resume game
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
-            {
-                if (Time.timeScale <= 0)
-                    SceneLoader.instance.ResumeGame();
-                else
-                    SceneLoader.instance.PauseGame();
-            }
-        }
-
         public void LoadURL(string url)
         {
             Application.OpenURL("https://eventhorizonschool.itch.io/cube-invaders");
