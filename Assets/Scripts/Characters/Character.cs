@@ -20,6 +20,7 @@ public class Character : redd096.StateMachine
     public bool IsMovingRight => isMovingRight;
     public System.Action OnThrowBall { get; set; }
     public System.Action OnPickBall { get; set; }
+    public System.Action OnParry { get; set; }
 
     void Awake()
     {
@@ -54,6 +55,18 @@ public class Character : redd096.StateMachine
         Debug.Log(name + " dead");
     }
 
+    protected void Parry(Ball ball)
+    {
+        //parry
+        ball.Parry();
+
+        //pick ball
+        PickBall(ball);
+
+        //call event
+        OnParry?.Invoke();
+    }
+
     #endregion
 
     #region private API
@@ -72,9 +85,9 @@ public class Character : redd096.StateMachine
 
     #region public API
 
-    public void KillByParry()
+    public void KillByParry(float parryDamage)
     {
-        Die();
+        GetDamage(parryDamage);
     }
 
     public virtual void HitByBall(Ball ball, bool isParryable)

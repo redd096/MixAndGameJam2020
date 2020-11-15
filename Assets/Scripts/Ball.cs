@@ -7,6 +7,9 @@ public class Ball : MonoBehaviour
 {
     [Header("Important")]
     [SerializeField] float damage = 10;
+    [SerializeField] float parryDamage = 100;
+
+    [Header("Graphics")]
     [SerializeField] GameObject normalTrail = default;
     [SerializeField] GameObject bossTrail = default;
 
@@ -139,7 +142,7 @@ public class Ball : MonoBehaviour
     public void Parry()
     {
         //damage owner
-        owner.KillByParry();
+        owner.KillByParry(parryDamage);
 
         //remove ball throwed
         RemoveBallThrowed();

@@ -15,6 +15,10 @@ public class CharacterGraphics : MonoBehaviour
     [Header("Hand")]
     [SerializeField] GameObject hand = default;
 
+    [Header("Parry")]
+    [SerializeField] GameObject parryObject = default;
+    [SerializeField] float timeBeforeHideParry = 1;
+
     protected Animator anim;
     SpriteRenderer sprite;
 
@@ -24,6 +28,8 @@ public class CharacterGraphics : MonoBehaviour
     bool isRunning;
     float previousSpeed;
 
+    Coroutine removeParry;
+
     protected virtual void Start()
     {
         //get references
@@ -32,8 +38,9 @@ public class CharacterGraphics : MonoBehaviour
         character = GetComponent<Character>();
         rb = GetComponent<Rigidbody2D>();
 
-        //default hand disabled
+        //default graphics disabled
         hand.SetActive(false);
+        parryObject.SetActive(false);
 
         AddEvent();
     }
@@ -54,32 +61,6 @@ public class CharacterGraphics : MonoBehaviour
         Run();
     }
 
-    #region events
-
-    protected virtual void AddEvent()
-    {
-        character.OnPickBall += PickBall;
-        character.OnThrowBall += OnThrowBall;
-    }
-
-    protected virtual void RemoveEvent()
-    {
-        character.OnPickBall -= PickBall;
-        character.OnThrowBall -= OnThrowBall;
-    }
-
-    void PickBall()
-    {
-        hand.SetActive(true);
-    }
-
-    void OnThrowBall()
-    {
-        hand.SetActive(false);
-    }
-
-    #endregion
-
     protected virtual void Run()
     {
         if (isRunning && rb.velocity.magnitude < speedToIdle && rb.velocity.magnitude < previousSpeed)
@@ -95,4 +76,58 @@ public class CharacterGraphics : MonoBehaviour
             previousSpeed = rb.velocity.magnitude;
         }
     }
+
+    #region events
+
+    protected virtual void AddEvent()
+    {
+        character.OnPickBall += PickBall;
+        character.OnThrowBall += OnThrowBall;
+        character.OnParry += OnParry;
+    }
+
+    protected virtual void RemoveEvent()
+    {
+        character.OnPickBall -= PickBall;
+        character.OnThrowBall -= OnThrowBall;
+        character.OnParry -= OnParry;
+    }
+
+    void PickBall()
+    {
+        //show hand
+        hand.SetActive(true);
+    }
+
+    void OnThrowBall()
+    {
+        //hide hand
+        hand.SetActive(false);
+    }
+
+    void OnParry()
+    {
+        //show parry
+        parryObject.SetActive(true);
+
+        //start coroutine to hide parry
+        if (removeParry != null)
+            StopCoroutine(removeParry);
+
+        removeParry = StartCoroutine(RemoveParry());
+    }
+
+    #endregion
+
+    #region private API
+
+    IEnumerator RemoveParry()
+    {
+        //wait, then hide parry
+        yield return new WaitForSeconds(timeBeforeHideParry);
+
+        parryObject.SetActive(false);
+    }
+
+    #endregion
 }

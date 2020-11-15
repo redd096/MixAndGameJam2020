@@ -110,17 +110,6 @@ public class Enemy : Character
         }
     }
 
-    void Parry(Ball ball)
-    {
-        Debug.Log("parry riuscito");
-
-        //parry
-        ball.Parry();
-
-        //pick ball
-        PickBall(ball);
-    }
-
     #endregion
 
     #region public API

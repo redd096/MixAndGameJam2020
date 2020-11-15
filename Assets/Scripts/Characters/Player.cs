@@ -141,17 +141,6 @@ public class Player : Character
         base.HitByBall(ball, isParryable);
     }
 
-    void Parry(Ball ball)
-    {
-        Debug.Log("parry riuscito");
-
-        //parry
-        ball.Parry();
-
-        //pick ball
-        PickBall(ball);
-    }
-
     #endregion
 
     protected override void Die()

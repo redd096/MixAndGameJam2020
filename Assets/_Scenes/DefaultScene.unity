@@ -478,7 +478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &296429832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1617,6 +1617,18 @@ PrefabInstance:
     - target: {fileID: 266389332474661434, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: m_Name
       value: Enemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
