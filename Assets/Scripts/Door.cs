@@ -11,6 +11,16 @@ public class Door : MonoBehaviour
     [Header("Move To Next Arena")]
     [SerializeField] Transform playerPosition = default;
 
+    [Header("Timer Before Active")]
+    [SerializeField] float timerBeforeActive = 1;
+
+    float timer;
+
+    void OnEnable()
+    {
+        timer = Time.time + timerBeforeActive;
+    }
+
     void Awake()
     {
         if (isActiveAtStart == false)
@@ -19,6 +29,10 @@ public class Door : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        //do only if ended timer
+        if (timer > Time.time)
+            return;
+
         //if collide with player
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player)
