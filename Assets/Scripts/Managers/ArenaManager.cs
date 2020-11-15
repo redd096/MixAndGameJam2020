@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArenaManager : MonoBehaviour
 {
     [Header("Important")]
-    bool isFIrstArena = false;
+    [SerializeField] bool isFIrstArena = false;
 
     [Header("Move To This Arena")]
     [SerializeField] Transform cameraPosition = default;
@@ -109,7 +109,8 @@ public class ArenaManager : MonoBehaviour
         }
 
         //play sound
-        GetComponent<AudioSource>()?.Play();
+        if(GetComponent<AudioSource>())
+            GetComponent<AudioSource>().Play();
     }
 
     #endregion
