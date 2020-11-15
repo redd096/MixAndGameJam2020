@@ -7,7 +7,14 @@ public class Chest : MonoBehaviour
     [Header("Power Up")]
     [SerializeField] PowerUp powerUp = default;
 
+    Animator anim;
+
     bool addPowerUp;
+
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -17,13 +24,13 @@ public class Chest : MonoBehaviour
         {
             addPowerUp = true;
 
+            //animation
+            anim.SetTrigger("Open");
+
             PowerUp p = new PowerUp(powerUp);
 
             //add power up to player and UI
             player.AddPowerUp(p);
-
-            //remove this chest
-            gameObject.SetActive(false);
         }
     }
 }
