@@ -11,8 +11,6 @@ public class Player : Character
 
     float parryTimer;
 
-    List<PowerUp> powerUps = new List<PowerUp>();
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -102,18 +100,6 @@ public class Player : Character
         }
     }
 
-    void ActivePowerUp(bool inputSpell, int spell)
-    {
-        //if press input and there is the power up in the list
-        if(inputSpell && powerUps.Count > spell)
-        {
-            if(powerUps[spell] != null)
-            {
-                powerUps[spell].ActivatePowerUp(this);
-            }
-        }
-    }
-
     #endregion
 
     #region hit by ball + parry
@@ -152,15 +138,6 @@ public class Player : Character
 
         //invoke end game
         redd096.GameManager.instance.Invoke("EndGame", 1);
-    }
-
-    #endregion
-
-    #region public API
-
-    public void AddPowerUp(PowerUp powerUp)
-    {
-        powerUps.Add(new PowerUp(powerUp));
     }
 
     #endregion

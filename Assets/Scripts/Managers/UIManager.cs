@@ -1,6 +1,7 @@
 ﻿namespace redd096
 {
     using UnityEngine;
+    using System.Collections.Generic;
     using UnityEngine.UI;
 
     [AddComponentMenu("redd096/MonoBehaviours/UI Manager")]
@@ -19,7 +20,7 @@
         [Header("PowerUp")]
         [SerializeField] Image[] imagesForPowerUp = default;
 
-        int indexImageForPowerUp = 0;
+        Dictionary<PowerUp, Image> powerUps = new Dictionary<PowerUp, Image>();
 
         void Start()
         {
@@ -27,6 +28,9 @@
             EndMenu(false);
             ShowHealthBoss(false);
             ShowTimerText(false);
+
+            foreach (Image image in imagesForPowerUp)
+                image.gameObject.SetActive(false);
         }
 
         #region menu
@@ -78,16 +82,31 @@
 
         #endregion
 
-        public void AddPowerUp(Sprite powerUp)
+        public void AddPowerUp(PowerUp powerUp)
         {
-            if (imagesForPowerUp == null || imagesForPowerUp.Length <= indexImageForPowerUp || imagesForPowerUp[indexImageForPowerUp] == null)
+            if (imagesForPowerUp == null || imagesForPowerUp.Length <= powerUps.Count || imagesForPowerUp[powerUps.Count -1] == null)
                 return;
 
-            //set image
-            imagesForPowerUp[indexImageForPowerUp].sprite = powerUp;
+            Image image = imagesForPowerUp[powerUps.Count - 1];
 
-            //increase index
-            indexImageForPowerUp++;
+            //set image
+            image.sprite = powerUp.SpritePowerUp;
+            image.gameObject.SetActive(true);
+
+            //add to dictionary
+            powerUps.Add(powerUp, image);
+        }
+
+        public void RemovePowerUp(PowerUp powerUp)
+        {
+            if(powerUps.ContainsKey(powerUp))
+            {
+                Image image = powerUps[powerUp];
+
+                //remove from dictionary
+                powerUps.Remove(powerUp);
+                image.gameObject.SetActive(false);
+            }    
         }
     }
 }

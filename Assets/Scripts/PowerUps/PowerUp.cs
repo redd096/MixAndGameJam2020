@@ -10,7 +10,8 @@ public class PowerUp : ScriptableObject
 
     public Sprite SpritePowerUp => spritePowerUp;
 
-    Coroutine deactive_Coroutine;
+    protected Character character;
+    protected Coroutine deactive_Coroutine;
 
     //constructor
     public PowerUp(PowerUp powerUp)
@@ -19,27 +20,67 @@ public class PowerUp : ScriptableObject
         duration = powerUp.duration;
     }
 
-    public virtual void ActivatePowerUp(Character character)
+    void OnDestroy()
     {
-        //start coroutine to deactivate
-        if (deactive_Coroutine != null)
-            character.StopCoroutine(deactive_Coroutine);
-
-        deactive_Coroutine = character.StartCoroutine(Deactive_Coroutine(character));
+        DeactivatePowerUp();
     }
 
-    public virtual void DeactivatePowerUp(Character character)
+    public void ActivatePowerUp(Character character)
     {
-        //stop coroutine
-        if (deactive_Coroutine != null)
-            character.StopCoroutine(deactive_Coroutine);
+        //do only one time
+        if (deactive_Coroutine == null)
+        {
+            //start coroutine to deactivate
+            deactive_Coroutine = character.StartCoroutine(Deactive_Coroutine());
+
+            //save character reference
+            this.character = character;
+
+            //active effect
+            ActivateEffect();
+        }
     }
 
-    IEnumerator Deactive_Coroutine(Character character)
+    public void DeactivatePowerUp()
+    {
+        if (character == null)
+            return;
+
+        //do only one time
+        if (deactive_Coroutine != null)
+        {
+            //stop coroutine
+            character.StopCoroutine(deactive_Coroutine);
+            deactive_Coroutine = null;
+
+            //deactivate effect
+            DeactivateEffect();
+
+            //remove from game
+            character.RemovePowerUp(this);
+            character = null;
+        }
+    }
+
+    IEnumerator Deactive_Coroutine()
     {
         //wait, then deactive
         yield return new WaitForSeconds(duration);
 
-        DeactivatePowerUp(character);
+        DeactivatePowerUp();
     }
+
+    #region effect
+
+    protected virtual void ActivateEffect()
+    {
+
+    }
+
+    protected virtual void DeactivateEffect()
+    {
+
+    }
+
+    #endregion
 }

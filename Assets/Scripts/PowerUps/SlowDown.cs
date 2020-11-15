@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "PowerUps/Slow Down", fileName = "Slow Down")]
 public class SlowDown : PowerUp
 {
     [Header("Slow Down")]
@@ -17,9 +18,9 @@ public class SlowDown : PowerUp
         timeToSet = slowDown.timeToSet;
     }
 
-    public override void ActivatePowerUp(Character character)
+    protected override void ActivateEffect()
     {
-        base.ActivatePowerUp(character);
+        base.ActivateEffect();
 
         //start power up coroutine
         if (slowDown_Coroutine != null)
@@ -28,9 +29,9 @@ public class SlowDown : PowerUp
         slowDown_Coroutine = character.StartCoroutine(SlowDown_Coroutine());
     }
 
-    public override void DeactivatePowerUp(Character character)
+    protected override void DeactivateEffect()
     {
-        base.DeactivatePowerUp(character);
+        base.DeactivateEffect();
 
         //stop power up coroutine
         if (slowDown_Coroutine != null)

@@ -17,9 +17,10 @@ public class Chest : MonoBehaviour
         {
             addPowerUp = true;
 
+            PowerUp p = new PowerUp(powerUp);
+
             //add power up to player and UI
-            player.AddPowerUp(powerUp);
-            redd096.GameManager.instance.uiManager.AddPowerUp(powerUp.SpritePowerUp);
+            player.AddPowerUp(p);
 
             //remove this chest
             gameObject.SetActive(false);
