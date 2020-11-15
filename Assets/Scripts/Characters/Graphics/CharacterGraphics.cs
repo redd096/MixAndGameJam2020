@@ -126,9 +126,9 @@ public class CharacterGraphics : MonoBehaviour
 
     void OnDead()
     {
+        //hide sprite and active explosion
         spriteToHide.SetActive(false);
         explosionOnDead.SetActive(true);
-        Debug.Log(name + " dead");
     }
 
     #endregion

@@ -28,7 +28,8 @@ public class Door : MonoBehaviour
         {
             if (moveToNextArena == null)
             {
-                //deactive player
+                //throw ball and deactive player
+                player.ThrowBall();
                 player.enabled = false;
 
                 //move camera with smooth

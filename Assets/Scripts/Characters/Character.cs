@@ -128,5 +128,14 @@ public class Character : redd096.StateMachine
         OnPickBall?.Invoke();
     }
 
+    public void ThrowBall()
+    {
+        if (currentBall)
+        {
+            //throw ball random to remove from character
+            ThrowBall(Random.insideUnitCircle, true);
+        }
+    }
+
     #endregion
 }
