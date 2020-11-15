@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
 {
-    [Header("Camera")]
+    [Header("Important")]
+    bool isFIrstArena = false;
+
+    [Header("Move To This Arena")]
     [SerializeField] Transform cameraPosition = default;
+    [SerializeField] float timeToMoveCamera = 1;
 
     [Header("Doors")]
     [SerializeField] GameObject[] toActivate = default;
@@ -15,9 +19,17 @@ public class ArenaManager : MonoBehaviour
     [SerializeField] int timer = 3;
 
     public Transform CameraPosition => cameraPosition;
+    public float TimeToMoveCamera => timeToMoveCamera;
 
     List<Enemy> enemiesInScene = new List<Enemy>();
     Coroutine timerCoroutine;
+
+    void Awake()
+    {
+        //deactive every other arena on awake
+        if (isFIrstArena == false)
+            gameObject.SetActive(false);
+    }
 
     void OnEnable()
     {
@@ -43,17 +55,9 @@ public class ArenaManager : MonoBehaviour
             }
         }
 
-        //if there are enemies in scene, start timer
-        if(enemiesInScene.Count > 0)
-        {
-            if (timerCoroutine == null)
+        //start timer
+        if (timerCoroutine == null)
                 timerCoroutine = StartCoroutine(TimerCoroutine());
-        }
-        //else active player
-        else
-        {
-            redd096.GameManager.instance.player.enabled = true;
-        }
     }
 
     #region private API
@@ -68,6 +72,9 @@ public class ArenaManager : MonoBehaviour
 
     IEnumerator TimerCoroutine()
     {
+        //wait end camera movement
+        yield return new WaitForSeconds(timeToMoveCamera);
+
         //show timer
         redd096.GameManager.instance.uiManager.ShowTimerText(true);
 
