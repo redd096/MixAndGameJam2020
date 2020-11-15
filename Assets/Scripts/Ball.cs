@@ -13,6 +13,10 @@ public class Ball : MonoBehaviour
     [SerializeField] GameObject normalTrail = default;
     [SerializeField] GameObject bossTrail = default;
 
+    [Header("Sound")]
+    [SerializeField] AudioClip normalSound = default;
+    [SerializeField] AudioClip noParryableSound = default;
+
     public bool BallThrowed { get; private set; }
     public float Damage => damage;
 
@@ -99,7 +103,7 @@ public class Ball : MonoBehaviour
                 Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), ignore);
     }
 
-    void ShowTrail(bool isParryable)
+    void GraphicsAndSound(bool isParryable)
     {
         if (normalTrail == null || bossTrail == null)
             return;
@@ -114,6 +118,18 @@ public class Ball : MonoBehaviour
         {
             bossTrail.SetActive(true);
             normalTrail.SetActive(false);
+        }
+
+        //play sound
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio)
+        {
+            if (isParryable)
+                audio.clip = normalSound;
+            else
+                audio.clip = noParryableSound;
+
+            audio.Play();
         }
     }
 
@@ -152,17 +168,12 @@ public class Ball : MonoBehaviour
         transform.position = spawnPosition;
         gameObject.SetActive(true);
 
-        ShowTrail(isParryable);
+        GraphicsAndSound(isParryable);
 
         //set ball throwed and push
         BallThrowed = true;
         this.isParryable = isParryable;
         rb.AddForce(force, ForceMode2D.Impulse);
-
-        //play sound
-        AudioSource audio = GetComponent<AudioSource>();
-        if (audio)
-            audio.Play();
     }
 
     public void Parry()

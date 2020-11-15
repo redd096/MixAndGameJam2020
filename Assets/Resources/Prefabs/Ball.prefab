@@ -242,6 +242,8 @@ MonoBehaviour:
   parryDamage: 100
   normalTrail: {fileID: 163650572967744798}
   bossTrail: {fileID: 5135215154256329712}
+  normalSound: {fileID: 8300000, guid: 085e95923a634b3438cd8a05c0093f37, type: 3}
+  noParryableSound: {fileID: 8300000, guid: e94e8f3f73b6cca48971b1366eb8851a, type: 3}
 --- !u!82 &2079995334895925651
 AudioSource:
   m_ObjectHideFlags: 0
