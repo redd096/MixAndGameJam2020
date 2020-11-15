@@ -84,6 +84,11 @@ public class ArenaManager : MonoBehaviour
             //show timer
             redd096.GameManager.instance.uiManager.ShowTimerText(true);
 
+            //play sound
+            AudioSource audio = GetComponent<AudioSource>();
+            if (audio)
+                audio.Play();
+
             for (int i = timer; i > 0; i--)
             {
                 //set text
@@ -97,11 +102,6 @@ public class ArenaManager : MonoBehaviour
 
             //hide timer
             redd096.GameManager.instance.uiManager.ShowTimerText(false);
-
-            //play sound
-            AudioSource audio = GetComponent<AudioSource>();
-            if (audio)
-                audio.Play();
         }
 
         EndTimer();
