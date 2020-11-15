@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2b07f844b36e94ba3ae3cd6cc2f86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 12000
   speed: 5
   pushForce: 1.5
-  parry: 0.2
+  parry: 0.3
   delayParry: 0.1
 --- !u!61 &1740645933463379709
 BoxCollider2D:
@@ -73,6 +73,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
+    - target: {fileID: 274766264804545365, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 779303661041656209, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
       value: 0
@@ -135,7 +139,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1145507413475323656, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756222530669838310, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7639466b9a6ed949a46cdeb19102682, type: 3}
+    - target: {fileID: 2422959700094307120, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
@@ -143,7 +155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
@@ -151,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -196,6 +208,10 @@ PrefabInstance:
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870384716455298181, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6528747615213841547, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_RootOrder
