@@ -20,6 +20,8 @@ public class Ball : MonoBehaviour
 
     Rigidbody2D rb;
     Character owner;
+    Character owner_Temp;
+
     void OnEnable()
     {
         //ignore collision of the owner
@@ -51,7 +53,7 @@ public class Ball : MonoBehaviour
         if (character)
         {
             //no hit allies
-            if ((owner is Player && character is Player) || (owner is Enemy && character is Enemy))
+            if ((owner_Temp is Player && character is Player) || (owner_Temp is Enemy && character is Enemy))
                 return;
 
             if (BallThrowed)
@@ -82,6 +84,8 @@ public class Ball : MonoBehaviour
         if (BallThrowed)
         {
             BallThrowed = false;
+
+            owner_Temp = null;
 
             //if there is already a owner, be sure to not ignore collision with him
             IgnoreCollision(false);
@@ -142,7 +146,11 @@ public class Ball : MonoBehaviour
 
         //set owner and set layer based on owner
         this.owner = owner;
+        this.owner_Temp = owner;
         IgnoreCollision(true);
+
+        //play sound
+        GetComponent<AudioSource>().Play();
 
         //set spawn position and active
         transform.position = spawnPosition;
