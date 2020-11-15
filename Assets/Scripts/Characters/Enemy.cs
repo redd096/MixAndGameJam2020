@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct EnemyParry
+{
+    public Transform minParry;
+    public Transform maxParry ;
+
+}
+
 [AddComponentMenu("MixAndGameJam2020/Characters/Enemy")]
 public class Enemy : Character
 {
@@ -15,15 +22,14 @@ public class Enemy : Character
     [SerializeField][Range(0, 100)]  int percentageNotParryable = 70;
 
     [Header("Parry")]
-    [SerializeField] [Range(0, 100)] int minParry = 25;
-    [SerializeField] [Range(0, 100)] int maxParry = 75;
+    [SerializeField] Transform leftSlider = default;
+    [SerializeField] Transform rightSlider = default;
+    [SerializeField] EnemyParry[] enemyMinMaxParries = default;
     [SerializeField] float timeSlider = 1;
 
     public BoxCollider2D[] AreasToMove => areasToMove;
     public float TimeBetweenPatrols => timeBetweenPatrols;
     public float TimeBeforeThrowBall => timeBeforeThrowBall;
-    public int MinParry => minParry;
-    public int MaxParry => maxParry;
     public bool IsBoss => isBoss;
 
     public System.Action onRunning { get; set; }
@@ -63,12 +69,23 @@ public class Enemy : Character
     {
         if (isParryable)
         {
-            //if parry inside min and max, and no ball in hand
-            if (parry > minParry && parry < maxParry && currentBall == null)
+            //if no ball
+            if (currentBall == null)
             {
-                Parry(ball);
+                //foreach enemyParry, check if parry is inside min and max
+                foreach (EnemyParry possibleParry in enemyMinMaxParries)
+                {
+                    float range = rightSlider.position.x - leftSlider.position.x;
+                    float min = Mathf.Abs(possibleParry.minParry.position.x) / range;
+                    float max = Mathf.Abs(possibleParry.maxParry.position.x) / range;
 
-                return;
+                    if (parry >= min && parry <= max)
+                    {
+                        Parry(ball);
+
+                        return;
+                    }
+                }
             }
         }
 
@@ -102,7 +119,7 @@ public class Enemy : Character
             while (delta < 1)
             {
                 delta += Time.deltaTime / timeSlider;
-                parry = Mathf.Lerp(0, 100, delta);
+                parry = Mathf.Lerp(0, 1, delta);
 
                 yield return null;
             }
@@ -110,7 +127,7 @@ public class Enemy : Character
             while (delta > 0)
             {
                 delta -= Time.deltaTime / timeSlider;
-                parry = Mathf.Lerp(0, 100, delta);
+                parry = Mathf.Lerp(0, 1, delta);
 
                 yield return null;
             }
@@ -175,9 +192,13 @@ public class Enemy : Character
 
     protected override void Die()
     {
-        base.Die();
+        //do only one time
+        if (isDead)
+            return;
 
         //call enemy dead on active arena
         FindObjectOfType<ArenaManager>().EnemyDead(this);
+
+        base.Die();
     }
 }
