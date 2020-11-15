@@ -15,7 +15,7 @@ MonoBehaviour:
   health: 12000
   speed: 4
   pushForce: 1.5
-  parry: 0.3
+  parry: 0.2
   delayParry: 0.1
 --- !u!61 &1740645933463379709
 BoxCollider2D:
