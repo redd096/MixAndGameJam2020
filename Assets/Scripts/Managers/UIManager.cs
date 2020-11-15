@@ -16,6 +16,11 @@
         [Header("Boss")]
         [SerializeField] Slider healthBoss = default;
 
+        [Header("PowerUp")]
+        [SerializeField] Image[] imagesForPowerUp = default;
+
+        int indexImageForPowerUp = 0;
+
         void Start()
         {
             PauseMenu(false);
@@ -23,6 +28,8 @@
             ShowHealthBoss(false);
             ShowTimerText(false);
         }
+
+        #region menu
 
         public void PauseMenu(bool active)
         {
@@ -37,6 +44,10 @@
                 PauseMenu(false);
         }
 
+        #endregion
+
+        #region boss health
+
         public void ShowHealthBoss(bool active)
         {
             if(healthBoss != null)
@@ -49,6 +60,10 @@
                 healthBoss.value = value;
         }
 
+        #endregion
+
+        #region timer
+
         public void ShowTimerText(bool active)
         {
             if (timerText != null)
@@ -59,6 +74,20 @@
         {
             if (timerText != null)
                 timerText.text = text;
+        }
+
+        #endregion
+
+        public void AddPowerUp(Sprite powerUp)
+        {
+            if (imagesForPowerUp == null || imagesForPowerUp.Length <= indexImageForPowerUp || imagesForPowerUp[indexImageForPowerUp] == null)
+                return;
+
+            //set image
+            imagesForPowerUp[indexImageForPowerUp].sprite = powerUp;
+
+            //increase index
+            indexImageForPowerUp++;
         }
     }
 }
