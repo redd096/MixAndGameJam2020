@@ -17,12 +17,17 @@ public class Character : redd096.StateMachine
     protected bool isMovingRight = true;
     protected bool isDead;
 
+    List<PowerUp> powerUps = new List<PowerUp>();
+    bool isInvincible;
+
     public Ball CurrentBall => currentBall;
     public bool IsMovingRight => isMovingRight;
     public System.Action OnThrowBall { get; set; }
     public System.Action OnPickBall { get; set; }
     public System.Action OnParry { get; set; }
     public System.Action OnDead { get; set; }
+    public System.Action<bool> OnShield { get; set; }
+    public System.Action<float> OnGetDamage { get; set; }
 
     void Awake()
     {
@@ -54,12 +59,18 @@ public class Character : redd096.StateMachine
 
     protected virtual void GetDamage(float damage)
     {
+        if (isInvincible)
+            return;
+
         //remove health
         health -= damage;
 
         //check death
         if (health <= 0)
             Die();
+
+        //call event
+        OnGetDamage?.Invoke(damage);
     }
 
     protected virtual void Die()
@@ -89,6 +100,18 @@ public class Character : redd096.StateMachine
 
         //call event
         OnParry?.Invoke();
+    }
+
+    protected void ActivePowerUp(bool inputSpell, int spell)
+    {
+        //if press input and there is the power up in the list
+        if (inputSpell && powerUps.Count > spell)
+        {
+            if (powerUps[spell] != null)
+            {
+                powerUps[spell].ActivatePowerUp(this);
+            }
+        }
     }
 
     #endregion
@@ -135,6 +158,45 @@ public class Character : redd096.StateMachine
             ThrowBall(Random.insideUnitCircle, true);
         }
     }
+
+    #region power ups
+
+    public void AddPowerUp(PowerUp powerUp)
+    {
+        //add to list
+        powerUps.Add(powerUp);
+
+        //add in UI
+        redd096.GameManager.instance.uiManager.AddPowerUp(powerUp);
+    }
+
+    public void RemovePowerUp(PowerUp powerUp)
+    {
+        //remove from the list
+        if (powerUps.Contains(powerUp))
+            powerUps.Remove(powerUp);
+
+        //remove from UI
+        redd096.GameManager.instance.uiManager.RemovePowerUp(powerUp);
+    }
+
+    public void SetSpeed(float newSpeed, out float previousSpeed)
+    {
+        //set previous and new speed
+        previousSpeed = speed;
+        speed = newSpeed;
+    }
+
+    public void SetShield(bool activate)
+    {
+        //set shield active or deactive
+        isInvincible = activate;
+
+        //cal event
+        OnShield?.Invoke(activate);
+    }
+
+    #endregion
 
     #endregion
 }

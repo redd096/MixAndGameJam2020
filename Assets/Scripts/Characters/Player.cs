@@ -30,6 +30,11 @@ public class Player : Character
         else
             StartParryTimer(Input.GetButtonDown("Action"));
 
+        //active power up
+        ActivePowerUp(Input.GetButtonDown("Spell1"), 0);
+        ActivePowerUp(Input.GetButtonDown("Spell2"), 1);
+        ActivePowerUp(Input.GetButtonDown("Spell3"), 2);
+
         PauseGame(Input.GetButtonDown("Pause"));
     }
 
