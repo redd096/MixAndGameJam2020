@@ -19,6 +19,10 @@ public class CharacterGraphics : MonoBehaviour
     [SerializeField] GameObject parryObject = default;
     [SerializeField] float timeBeforeHideParry = 1;
 
+    [Header("Explosion Dead")]
+    [SerializeField] GameObject spriteToHide = default;
+    [SerializeField] GameObject explosionOnDead = default;
+
     protected Animator anim;
     SpriteRenderer sprite;
 
@@ -41,6 +45,7 @@ public class CharacterGraphics : MonoBehaviour
         //default graphics disabled
         hand.SetActive(false);
         parryObject.SetActive(false);
+        explosionOnDead.SetActive(false);
 
         AddEvent();
     }
@@ -84,6 +89,7 @@ public class CharacterGraphics : MonoBehaviour
         character.OnPickBall += PickBall;
         character.OnThrowBall += OnThrowBall;
         character.OnParry += OnParry;
+        character.OnDead += OnDead;
     }
 
     protected virtual void RemoveEvent()
@@ -91,6 +97,7 @@ public class CharacterGraphics : MonoBehaviour
         character.OnPickBall -= PickBall;
         character.OnThrowBall -= OnThrowBall;
         character.OnParry -= OnParry;
+        character.OnDead -= OnDead;
     }
 
     void PickBall()
@@ -115,6 +122,13 @@ public class CharacterGraphics : MonoBehaviour
             StopCoroutine(removeParry);
 
         removeParry = StartCoroutine(RemoveParry());
+    }
+
+    void OnDead()
+    {
+        spriteToHide.SetActive(false);
+        explosionOnDead.SetActive(true);
+        Debug.Log(name + " dead");
     }
 
     #endregion

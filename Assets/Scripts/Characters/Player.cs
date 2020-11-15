@@ -145,11 +145,14 @@ public class Player : Character
 
     protected override void Die()
     {
+        //do only one time
+        if (isDead)
+            return;
+
         base.Die();
 
-        Time.timeScale = 0;
-        redd096.GameManager.instance.uiManager.EndMenu(true);
-        enabled = false;
+        //invoke end game
+        redd096.GameManager.instance.Invoke("EndGame", 1);
     }
 
     #endregion

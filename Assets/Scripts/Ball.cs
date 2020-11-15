@@ -24,6 +24,9 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //default hide trail
+        HideTrail();
     }
 
     void FixedUpdate()

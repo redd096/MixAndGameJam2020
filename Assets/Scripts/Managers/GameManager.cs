@@ -24,5 +24,11 @@
         {
             AudioListener.volume = value;
         }
+
+        public void EndGame()
+        {
+            Time.timeScale = 0;
+            uiManager.EndMenu(true);
+        }
     }
 }

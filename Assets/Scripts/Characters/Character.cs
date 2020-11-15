@@ -15,12 +15,14 @@ public class Character : redd096.StateMachine
     protected Ball currentBall;
 
     protected bool isMovingRight = true;
+    protected bool isDead;
 
     public Ball CurrentBall => currentBall;
     public bool IsMovingRight => isMovingRight;
     public System.Action OnThrowBall { get; set; }
     public System.Action OnPickBall { get; set; }
     public System.Action OnParry { get; set; }
+    public System.Action OnDead { get; set; }
 
     void Awake()
     {
@@ -52,7 +54,16 @@ public class Character : redd096.StateMachine
 
     protected virtual void Die()
     {
-        Debug.Log(name + " dead");
+        //do only one time
+        if (isDead)
+            return;
+
+        isDead = true;
+
+        OnDead?.Invoke();
+
+        //stop character
+        enabled = false;
     }
 
     protected void Parry(Ball ball)
