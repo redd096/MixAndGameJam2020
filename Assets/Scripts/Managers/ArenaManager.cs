@@ -23,6 +23,10 @@ public class ArenaManager : MonoBehaviour
     {
         enemiesInScene.Clear();
 
+        //do nothing first time, only from second arena
+        if (redd096.GameManager.instance == null)
+            return;
+
         //create enemies list
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
@@ -48,10 +52,7 @@ public class ArenaManager : MonoBehaviour
         //else active player
         else
         {
-            if (redd096.GameManager.instance != null)
-                redd096.GameManager.instance.player.enabled = true;
-            else
-                FindObjectOfType<Player>().enabled = true;
+            redd096.GameManager.instance.player.enabled = true;
         }
     }
 
