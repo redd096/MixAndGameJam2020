@@ -8,10 +8,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -217606225830217147, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
-      propertyPath: areasToMove.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: -217606225830217147, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: pushForce
       value: 1
       objectReference: {fileID: 0}
@@ -63,6 +59,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy2
       objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479076321418183011, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3520896362354153719, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -82,6 +90,6 @@ PrefabInstance:
     - target: {fileID: 8002413439979042516, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: e499135c39999ed4598baf6d75eb6065, type: 2}
+      objectReference: {fileID: 22100000, guid: 895e42388cdd1444bbb4c89be756c8b6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}

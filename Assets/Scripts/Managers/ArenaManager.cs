@@ -48,7 +48,10 @@ public class ArenaManager : MonoBehaviour
         //else active player
         else
         {
-            redd096.GameManager.instance.player.enabled = true;
+            if (redd096.GameManager.instance != null)
+                redd096.GameManager.instance.player.enabled = true;
+            else
+                FindObjectOfType<Player>().enabled = true;
         }
     }
 
@@ -98,7 +101,7 @@ public class ArenaManager : MonoBehaviour
         }
 
         //play sound
-        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>()?.Play();
     }
 
     #endregion
