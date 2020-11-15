@@ -21,12 +21,6 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     Character owner;
 
-    private void OnEnable()
-    {
-        //ignore collision of the owner
-        IgnoreCollision(true);
-    }
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -85,9 +79,20 @@ public class Ball : MonoBehaviour
 
     void IgnoreCollision(bool ignore)
     {
+        //back to normal layer
+        if (ignore == false)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Ball");
+            return;
+        }
+        //else layer to ignore owner
         if (owner != null)
-            if (owner.GetComponentInChildren<Collider2D>() != null)
-                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), ignore);
+        {
+            if (owner is Player)
+                gameObject.layer = LayerMask.NameToLayer("Ball No Hit Player");
+            else
+                gameObject.layer = LayerMask.NameToLayer("Ball No Hit Enemy");
+        }
     }
 
     void ShowTrail(bool isParryable)
@@ -132,9 +137,6 @@ public class Ball : MonoBehaviour
 
     public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner, bool isParryable)
     {
-        //if there is already a owner, be sure to not ignore collision with him
-        IgnoreCollision(false);
-
         //set owner and set layer based on owner
         this.owner = owner;
         IgnoreCollision(true);
