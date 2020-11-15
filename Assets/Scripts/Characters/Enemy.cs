@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct EnemyParry
 {
     public Transform minParry;
@@ -22,8 +23,7 @@ public class Enemy : Character
     [SerializeField][Range(0, 100)]  int percentageNotParryable = 70;
 
     [Header("Parry")]
-    [SerializeField] Transform leftSlider = default;
-    [SerializeField] Transform rightSlider = default;
+    [SerializeField] float widthSlider = 160;
     [SerializeField] EnemyParry[] enemyMinMaxParries = default;
     [SerializeField] float timeSlider = 1;
 
@@ -75,9 +75,11 @@ public class Enemy : Character
                 //foreach enemyParry, check if parry is inside min and max
                 foreach (EnemyParry possibleParry in enemyMinMaxParries)
                 {
-                    float range = rightSlider.position.x - leftSlider.position.x;
-                    float min = Mathf.Abs(possibleParry.minParry.position.x) / range;
-                    float max = Mathf.Abs(possibleParry.maxParry.position.x) / range;
+                    float min = (possibleParry.minParry.localPosition.x + widthSlider /2) / widthSlider;
+                    float max = (possibleParry.maxParry.localPosition.x + widthSlider / 2) / widthSlider;
+
+                    Debug.Log("min local pos: " + possibleParry.minParry.localPosition.x + " - max local pos: " + possibleParry.maxParry.localPosition.x);
+                    Debug.Log("min: " + min + " - max: " + max + " - parry: " + parry);
 
                     if (parry >= min && parry <= max)
                     {

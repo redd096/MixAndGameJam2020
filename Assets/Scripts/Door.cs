@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
 
     [Header("Move To Next Arena")]
     [SerializeField] float timeToMoveCamera = 1;
-    [SerializeField] Vector3 playerPosition = Vector3.zero;
+    [SerializeField] Transform playerPosition = default;
 
     Coroutine moveToNextArena;
 
@@ -42,7 +42,7 @@ public class Door : MonoBehaviour
                 arenaToMove.gameObject.SetActive(true);
 
                 //move player
-                player.transform.position = playerPosition;
+                player.transform.position = playerPosition.position;
             }
         }
     }
@@ -58,7 +58,7 @@ public class Door : MonoBehaviour
         while(delta < 1)
         {
             delta += Time.deltaTime / timeToMoveCamera;
-            cam.position = Vector3.Lerp(startPosition, arenaToMove.CameraPosition, delta);
+            cam.position = Vector3.Lerp(startPosition, arenaToMove.CameraPosition.position, delta);
 
             yield return null;
         }

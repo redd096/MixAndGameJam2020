@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArenaManager : MonoBehaviour
 {
     [Header("Camera")]
-    [SerializeField] Vector3 cameraPosition = Vector3.zero;
+    [SerializeField] Transform cameraPosition = default;
 
     [Header("Doors")]
     [SerializeField] GameObject[] toActivate = default;
@@ -14,7 +14,7 @@ public class ArenaManager : MonoBehaviour
     [Header("Timer")]
     [SerializeField] int timer = 3;
 
-    public Vector3 CameraPosition => cameraPosition;
+    public Transform CameraPosition => cameraPosition;
 
     List<Enemy> enemiesInScene = new List<Enemy>();
     Coroutine timerCoroutine;
