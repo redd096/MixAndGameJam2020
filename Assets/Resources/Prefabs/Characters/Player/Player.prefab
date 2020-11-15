@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 12000
-  speed: 4
-  pushForce: 1.5
-  parry: 0.2
-  delayParry: 0.1
+  speed: 3
+  pushForce: 1.2
+  parry: 0.1
+  delayParry: 0.2
 --- !u!61 &1740645933463379709
 BoxCollider2D:
   m_ObjectHideFlags: 0
