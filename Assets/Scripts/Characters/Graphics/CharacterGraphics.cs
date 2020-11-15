@@ -24,7 +24,7 @@ public class CharacterGraphics : MonoBehaviour
     bool isRunning;
     float previousSpeed;
 
-    void Start()
+    protected virtual void Start()
     {
         //get references
         anim = GetComponentInChildren<Animator>();
@@ -43,7 +43,7 @@ public class CharacterGraphics : MonoBehaviour
         RemoveEvent();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //flip or not
         sprite.flipX = !character.IsMovingRight;

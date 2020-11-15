@@ -89,7 +89,7 @@ public class Player : Character
         //if press input throw ball and there is a ball in hand
         if (inputThrow && currentBall != null)
         {
-            ThrowBall(playerDirection, false);
+            ThrowBall(playerDirection, true);
         }
     }
 
@@ -121,9 +121,9 @@ public class Player : Character
 
     public override void HitByBall(Ball ball, bool isParryable)
     {
-        //if parry timer and no ball in hand
         if (isParryable)
         {
+            //if parry timer and no ball in hand
             if (Time.time < parryTimer && currentBall == null)
             {
                 //parry if looking in direction of the ball (right or left)
