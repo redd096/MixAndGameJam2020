@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8919134209542342259
 Transform:
   m_ObjectHideFlags: 0
@@ -237,7 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315d23dbbb9cce14dae98caf834097d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 100
+  normalTrail: {fileID: 163650572967744798}
+  bossTrail: {fileID: 5135215154256329712}
 --- !u!1 &5135215154256329712
 GameObject:
   m_ObjectHideFlags: 0
