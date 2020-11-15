@@ -21,6 +21,16 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     Character owner;
 
+    private void OnEnable()
+    {
+        //ignore collision of the owner
+        if(owner)
+        {
+            if (owner.GetComponentInChildren<Collider2D>() != null)
+                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
