@@ -72,6 +72,9 @@ public class Character : redd096.StateMachine
 
         OnDead?.Invoke();
 
+        //throw ball if is in hand
+        ThrowBall();
+
         //stop character
         enabled = false;
     }
