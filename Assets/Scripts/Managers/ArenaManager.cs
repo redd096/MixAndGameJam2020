@@ -22,7 +22,15 @@ public class ArenaManager : MonoBehaviour
         //create enemies list
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
+        {
             enemiesInScene.Add(enemy);
+
+            //check if there is a boss and show health bar
+            if(enemy.IsBoss)
+            {
+                redd096.GameManager.instance.uiManager.ShowHealthBoss(true);
+            }
+        }
     }
 
     IEnumerator DeactiveEnemy(Enemy enemy)
@@ -50,6 +58,9 @@ public class ArenaManager : MonoBehaviour
 
     public void OpenDoors()
     {
+        //hide boos health bar
+        redd096.GameManager.instance.uiManager.ShowHealthBoss(false);
+
         //active every door
         foreach (GameObject door in toActivate)
         {

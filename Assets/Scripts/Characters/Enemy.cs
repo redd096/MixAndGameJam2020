@@ -24,6 +24,7 @@ public class Enemy : Character
     public float TimeBeforeThrowBall => timeBeforeThrowBall;
     public int MinParry => minParry;
     public int MaxParry => maxParry;
+    public bool IsBoss => isBoss;
 
     public System.Action onRunning { get; set; }
     public System.Action onIdle { get; set; }
