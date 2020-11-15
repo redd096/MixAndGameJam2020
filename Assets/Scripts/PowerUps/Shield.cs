@@ -8,8 +8,10 @@ public class Shield : PowerUp
     [Header("Shield")]
     [SerializeField] float health = 100;
 
-    public Shield(PowerUp powerUp) : base(powerUp)
+    public override void Init(PowerUp powerUp)
     {
+        base.Init(powerUp);
+
         Shield shield = powerUp as Shield;
 
         health = shield.health;

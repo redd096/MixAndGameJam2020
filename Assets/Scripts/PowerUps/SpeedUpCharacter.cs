@@ -11,8 +11,10 @@ public class SpeedUpCharacter : PowerUp
     float previousSpeed;
 
     //constructor
-    public SpeedUpCharacter(PowerUp powerUp) : base(powerUp)
+    public override void Init(PowerUp powerUp)
     {
+        base.Init(powerUp);
+
         SpeedUpCharacter speedUp = powerUp as SpeedUpCharacter;
 
         speedToSet = speedUp.speedToSet;

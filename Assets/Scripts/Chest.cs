@@ -14,7 +14,7 @@ public class Chest : MonoBehaviour
     [SerializeField] float timerBeforeActive = 0.5f;
 
     Animator anim;
-
+    
     float timer;
     bool addPowerUp;
 
@@ -46,7 +46,22 @@ public class Chest : MonoBehaviour
             //animation
             anim.SetTrigger("Open");
 
-            PowerUp p = new PowerUp(powerUp);
+            PowerUp p = null;
+
+            if (powerUp is SpeedUpCharacter)
+            {
+                p = ScriptableObject.CreateInstance("SpeedUpCharacter") as SpeedUpCharacter;
+            }
+            else if(powerUp is Shield)
+            {
+                p = ScriptableObject.CreateInstance("Shield") as Shield;
+            }
+            else
+            {
+                p = ScriptableObject.CreateInstance("SlowDown") as SlowDown;
+            }
+
+            p.Init(powerUp);
 
             //add power up to player and UI
             player.AddPowerUp(p);

@@ -13,8 +13,8 @@ public class PowerUp : ScriptableObject
     protected Character character;
     protected Coroutine deactive_Coroutine;
 
-    //constructor
-    public PowerUp(PowerUp powerUp)
+
+    public virtual void Init(PowerUp powerUp)
     {
         spritePowerUp = powerUp.spritePowerUp;
         duration = powerUp.duration;

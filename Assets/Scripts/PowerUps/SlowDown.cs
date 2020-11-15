@@ -11,8 +11,10 @@ public class SlowDown : PowerUp
     Coroutine slowDown_Coroutine;
 
     //constructor
-    public SlowDown(PowerUp powerUp) : base(powerUp)
+    public override void Init(PowerUp powerUp)
     {
+        base.Init(powerUp);
+
         SlowDown slowDown = powerUp as SlowDown;
 
         timeToSet = slowDown.timeToSet;
