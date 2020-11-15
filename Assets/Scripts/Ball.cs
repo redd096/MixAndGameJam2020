@@ -45,6 +45,10 @@ public class Ball : MonoBehaviour
         Character character = collision.gameObject.GetComponentInParent<Character>();
         if (character)
         {
+            if ((gameObject.layer == LayerMask.NameToLayer("Ball No Hit Player") && character is Player)
+                || (gameObject.layer == LayerMask.NameToLayer("Ball No Hit Enemy") && character is Enemy))
+                return;
+
             if (BallThrowed)
             {
                 RemoveBallThrowed();
