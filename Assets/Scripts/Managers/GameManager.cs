@@ -13,12 +13,6 @@
             //get references
             uiManager = FindObjectOfType<UIManager>();
             player = FindObjectOfType<Player>();
-            
-            //if there is a player, lock mouse
-            if (player)
-            {
-                FindObjectOfType<SceneLoader>().ResumeGame();
-            }
         }
 
         void Update()

@@ -7,9 +7,13 @@ public class Ball : MonoBehaviour
 {
     [Header("Important")]
     [SerializeField] float damage = 10;
+    [SerializeField] GameObject normalTrail = default;
+    [SerializeField] GameObject bossTrail = default;
 
     public bool BallThrowed { get; private set; }
     public float Damage => damage;
+
+    bool isParryable;
 
     Rigidbody2D rb;
     Character owner;
@@ -23,7 +27,10 @@ public class Ball : MonoBehaviour
     {
         //if is sleeping, remove ball throwed
         if (rb.IsSleeping())
+        {
             RemoveBallThrowed();
+            HideTrail();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -35,7 +42,7 @@ public class Ball : MonoBehaviour
             if (BallThrowed)
             {
                 RemoveBallThrowed();
-                character.HitByBall(this);
+                character.HitByBall(this, isParryable);
             }
 
             //pick ball if no ball in hand
@@ -45,8 +52,12 @@ public class Ball : MonoBehaviour
 
         //if hit something that is not a character, remove ball throwed
         if (character == null)
+        {
             RemoveBallThrowed();
+        }
     }
+
+    #region private API
 
     void RemoveBallThrowed()
     {
@@ -61,6 +72,35 @@ public class Ball : MonoBehaviour
         }
     }
 
+    void ShowTrail(bool isParryable)
+    {
+        if (normalTrail == null || bossTrail == null)
+            return;
+
+        //active trail
+        if (isParryable)
+        {
+            normalTrail.SetActive(true);
+            bossTrail.SetActive(false);
+        }
+        else
+        {
+            bossTrail.SetActive(true);
+            normalTrail.SetActive(false);
+        }
+    }
+
+    void HideTrail()
+    {
+        if (normalTrail == null || bossTrail == null)
+            return;
+
+        normalTrail.SetActive(false);
+        bossTrail.SetActive(false);
+    }
+
+    #endregion
+
     #region public API
 
     public void PickBall()
@@ -72,7 +112,7 @@ public class Ball : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner)
+    public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner, bool isParryable)
     {
         //if there is already a owner, be sure to not ignore collision with him
         if(this.owner != null)
@@ -88,8 +128,11 @@ public class Ball : MonoBehaviour
         transform.position = spawnPosition;
         gameObject.SetActive(true);
 
+        ShowTrail(isParryable);
+
         //set ball throwed and push
         BallThrowed = true;
+        this.isParryable = isParryable;
         rb.AddForce(force, ForceMode2D.Impulse);
     }
 

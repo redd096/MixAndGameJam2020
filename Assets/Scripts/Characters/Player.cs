@@ -87,7 +87,7 @@ public class Player : Character
         //if press input throw ball and there is a ball in hand
         if (inputThrow && currentBall != null)
         {
-            ThrowBall(playerDirection);
+            ThrowBall(playerDirection, false);
         }
     }
 
@@ -105,23 +105,26 @@ public class Player : Character
 
     #region hit by ball + parry
 
-    public override void HitByBall(Ball ball)
+    public override void HitByBall(Ball ball, bool isParryable)
     {
         //if parry timer and no ball in hand
-        if (Time.time < parryTimer && currentBall == null)
+        if (isParryable)
         {
-            //parry if looking in direction of the ball (right or left)
-            Vector2 direction = ball.transform.position - transform.position;
-            if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+            if (Time.time < parryTimer && currentBall == null)
             {
-                Parry(ball);
+                //parry if looking in direction of the ball (right or left)
+                Vector2 direction = ball.transform.position - transform.position;
+                if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+                {
+                    Parry(ball);
 
-                return;
+                    return;
+                }
             }
         }
 
         //else normal hit by ball
-        base.HitByBall(ball);
+        base.HitByBall(ball, isParryable);
     }
 
     void Parry(Ball ball)
@@ -136,6 +139,14 @@ public class Player : Character
     }
 
     #endregion
+
+    protected override void Die()
+    {
+        base.Die();
+
+        Time.timeScale = 0;
+        redd096.GameManager.instance.uiManager.EndMenu(true);
+    }
 
     #endregion
 }

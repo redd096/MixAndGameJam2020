@@ -37,16 +37,21 @@ public class Character : redd096.StateMachine
 
     #region protected API
 
-    protected void ThrowBall(Vector2 direction)
+    protected void ThrowBall(Vector2 direction, bool isParryable)
     {
         Vector2 ballPosition = new Vector2(transform.position.x, transform.position.y);
 
         //throw ball and remove reference
-        currentBall.ThrowBall(direction * pushForce, ballPosition, this);
+        currentBall.ThrowBall(direction * pushForce, ballPosition, this, isParryable);
         currentBall = null;
 
         //call event
         OnThrowBall?.Invoke();
+    }
+
+    protected virtual void Die()
+    {
+        Debug.Log(name + " dead");
     }
 
     #endregion
@@ -63,11 +68,6 @@ public class Character : redd096.StateMachine
             Die();
     }
 
-    void Die()
-    {
-        Debug.Log(name + " dead");
-    }
-
     #endregion
 
     #region public API
@@ -77,7 +77,7 @@ public class Character : redd096.StateMachine
         Die();
     }
 
-    public virtual void HitByBall(Ball ball)
+    public virtual void HitByBall(Ball ball, bool isParryable)
     {
         //if we have a ball in hand
         if(currentBall)

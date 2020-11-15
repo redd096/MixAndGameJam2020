@@ -10,6 +10,10 @@ public class Enemy : Character
     [SerializeField] float timeBetweenPatrols = 2;
     [SerializeField] float timeBeforeThrowBall = 1;
 
+    [Header("Boss")]
+    [SerializeField] bool isBoss = false;
+    [SerializeField][Range(0, 100)]  int percentageNotParryable = 70;
+
     public BoxCollider2D[] AreasToMove => areasToMove;
     public float TimeBetweenPatrols => timeBetweenPatrols;
     public float TimeBeforeThrowBall => timeBeforeThrowBall;
@@ -59,7 +63,9 @@ public class Enemy : Character
         //throw to player
         Vector2 direction = redd096.GameManager.instance.player.transform.position - transform.position;
 
-        ThrowBall(direction.normalized);
+        bool isParryable = isBoss ? Random.Range(0, 100) > percentageNotParryable : true;
+
+        ThrowBall(direction.normalized, isParryable);
     }
 
     public void LookToPlayer()
