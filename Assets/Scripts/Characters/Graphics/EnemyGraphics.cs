@@ -60,6 +60,9 @@ public class EnemyGraphics : CharacterGraphics
     {
         base.RemoveEvent();
 
+        if (enemy == null)
+            return;
+
         enemy.onRunning -= OnRunning;
         enemy.onIdle -= OnIdle;
     }

@@ -94,6 +94,9 @@ public class CharacterGraphics : MonoBehaviour
 
     protected virtual void RemoveEvent()
     {
+        if (character == null)
+            return;
+
         character.OnPickBall -= PickBall;
         character.OnThrowBall -= OnThrowBall;
         character.OnParry -= OnParry;
