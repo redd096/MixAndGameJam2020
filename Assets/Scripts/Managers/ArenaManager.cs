@@ -13,6 +13,7 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Timer")]
     [SerializeField] int timer = 3;
+    [SerializeField] AudioSource audioSource = default;
 
     public Transform CameraPosition => cameraPosition;
 
@@ -52,6 +53,8 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
+    #region private API
+
     IEnumerator DeactiveEnemy(Enemy enemy)
     {
         //wait, then deactivate enemy
@@ -63,34 +66,43 @@ public class ArenaManager : MonoBehaviour
     IEnumerator TimerCoroutine()
     {
         //show timer
-        redd096.GameManager.instance.uiManager.SetTimerText(timer.ToString("F0"));
         redd096.GameManager.instance.uiManager.ShowTimerText(true);
 
-        for(int i = timer; i >= 0; i--)
+        for(int i = timer; i > 0; i--)
         {
-            //wait one second
-            yield return new WaitForSeconds(1);
-
-            //if 0, hide timer
-            if(i == 0)
-            {
-                redd096.GameManager.instance.uiManager.ShowTimerText(false);
-            }
-            //else set text
+            //set text
             {
                 redd096.GameManager.instance.uiManager.SetTimerText(i.ToString("F0"));
             }
+
+            //wait one second
+            yield return new WaitForSeconds(1);
         }
 
+        //hide timer
+        redd096.GameManager.instance.uiManager.ShowTimerText(false);
+
+        EndTimer();
+
+        timerCoroutine = null;
+    }
+
+    void EndTimer()
+    {
         //enable player
         redd096.GameManager.instance.player.enabled = true;
 
         //enable every enemy
-        foreach(Enemy enemy in enemiesInScene)
+        foreach (Enemy enemy in enemiesInScene)
         {
             enemy.enabled = true;
         }
+
+        //play sound
+        audioSource.Play();
     }
+
+    #endregion
 
     #region public API
 
