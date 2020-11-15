@@ -146,7 +146,6 @@ public class Ball : MonoBehaviour
 
         //set owner and set layer based on owner
         this.owner = owner;
-        this.owner_Temp = owner;
         IgnoreCollision(true);
 
         //play sound
