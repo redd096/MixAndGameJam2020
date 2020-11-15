@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c840588a3dd488a42849d486fe800ea4, type: 3}
   m_Name: Slow Down
   m_EditorClassIdentifier: 
-  spritePowerUp: {fileID: 0}
-  duration: 0
-  timeToSet: 0
+  spritePowerUp: {fileID: 21300000, guid: 34f15a75c5d53634baabedd6a72b6a10, type: 3}
+  duration: 5
+  timeToSet: 0.5

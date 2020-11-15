@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f103f224bb6f41c4cac245b4bbf584d4, type: 3}
   m_Name: Speed Up Character
   m_EditorClassIdentifier: 
-  spritePowerUp: {fileID: 0}
-  duration: 0
-  speedToSet: 0
+  spritePowerUp: {fileID: 21300000, guid: d12aa4f32861e954b8dd2d320ce0df31, type: 3}
+  duration: 5
+  speedToSet: 6
