@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpeedUpCharacter : PowerUp
 {
     [Header("Speed Up")]
-    [SerializeField] float speedToSet = 0.5f;
+    [SerializeField] float speedToSet = 6;
 
     float previousSpeed;
 
