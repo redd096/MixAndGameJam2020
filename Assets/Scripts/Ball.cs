@@ -50,13 +50,15 @@ public class Ball : MonoBehaviour
         Character character = collision.gameObject.GetComponentInParent<Character>();
         if (character)
         {
-            if ((owner is Player && character is Player)
-                || (owner is Enemy && character is Enemy))
-                return;
-
             if (BallThrowed)
             {
                 RemoveBallThrowed();
+
+                //no hit allies
+                if ((owner is Player && character is Player) || (owner is Enemy && character is Enemy))
+                    return;
+
+                //do damage (or deflect or parry)
                 character.HitByBall(this, isParryable);
             }
 
