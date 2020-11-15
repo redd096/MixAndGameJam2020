@@ -79,22 +79,29 @@ public class ArenaManager : MonoBehaviour
         //wait end camera movement
         yield return new WaitForSeconds(timeToMoveCamera);
 
-        //show timer
-        redd096.GameManager.instance.uiManager.ShowTimerText(true);
-
-        for(int i = timer; i > 0; i--)
+        if (enemiesInScene.Count > 0)
         {
-            //set text
+            //show timer
+            redd096.GameManager.instance.uiManager.ShowTimerText(true);
+
+            for (int i = timer; i > 0; i--)
             {
-                redd096.GameManager.instance.uiManager.SetTimerText(i.ToString("F0"));
+                //set text
+                {
+                    redd096.GameManager.instance.uiManager.SetTimerText(i.ToString("F0"));
+                }
+
+                //wait one second
+                yield return new WaitForSeconds(1);
             }
 
-            //wait one second
-            yield return new WaitForSeconds(1);
-        }
+            //hide timer
+            redd096.GameManager.instance.uiManager.ShowTimerText(false);
 
-        //hide timer
-        redd096.GameManager.instance.uiManager.ShowTimerText(false);
+            //play sound
+            if (GetComponent<AudioSource>())
+                GetComponent<AudioSource>().Play();
+        }
 
         EndTimer();
 
@@ -111,10 +118,6 @@ public class ArenaManager : MonoBehaviour
         {
             enemy.enabled = true;
         }
-
-        //play sound
-        if(GetComponent<AudioSource>())
-            GetComponent<AudioSource>().Play();
     }
 
     #endregion
