@@ -24,11 +24,7 @@ public class Ball : MonoBehaviour
     private void OnEnable()
     {
         //ignore collision of the owner
-        if(owner)
-        {
-            if (owner.GetComponentInChildren<Collider2D>() != null)
-                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
-        }
+        IgnoreCollision(true);
     }
 
     void Start()
@@ -83,9 +79,15 @@ public class Ball : MonoBehaviour
             BallThrowed = false;
 
             //if there is already a owner, be sure to not ignore collision with him
-            if (owner != null)
-                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), false);
+            IgnoreCollision(false);
         }
+    }
+
+    void IgnoreCollision(bool ignore)
+    {
+        if (owner != null)
+            if (owner.GetComponentInChildren<Collider2D>() != null)
+                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), ignore);
     }
 
     void ShowTrail(bool isParryable)
@@ -131,16 +133,11 @@ public class Ball : MonoBehaviour
     public void ThrowBall(Vector2 force, Vector2 spawnPosition, Character owner, bool isParryable)
     {
         //if there is already a owner, be sure to not ignore collision with him
-        if(this.owner != null)
-        {
-            if(this.owner.GetComponentInChildren<Collider2D>() != null)
-                Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), this.owner.GetComponentInChildren<Collider2D>(), false);
-        }
+        IgnoreCollision(false);
 
         //set owner and set layer based on owner
         this.owner = owner;
-        if (owner.GetComponentInChildren<Collider2D>() != null)
-            Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), owner.GetComponentInChildren<Collider2D>(), true);
+        IgnoreCollision(true);
 
         //set spawn position and active
         transform.position = spawnPosition;

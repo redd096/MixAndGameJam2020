@@ -24,7 +24,7 @@ public class ArenaManager : MonoBehaviour
     List<Enemy> enemiesInScene = new List<Enemy>();
     Coroutine timerCoroutine;
 
-    void Awake()
+    void Start()
     {
         //deactive every other arena on awake
         if (isFIrstArena == false)

@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
     [Header("Move To Next Arena")]
     [SerializeField] Transform playerPosition = default;
 
-    void Start()
+    void Awake()
     {
         if (isActiveAtStart == false)
             gameObject.SetActive(false);
