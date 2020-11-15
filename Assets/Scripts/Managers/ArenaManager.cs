@@ -24,6 +24,8 @@ public class ArenaManager : MonoBehaviour
     List<Enemy> enemiesInScene = new List<Enemy>();
     Coroutine timerCoroutine;
 
+    bool firstTime = true;
+
     void Start()
     {
         //deactive every other arena on awake
@@ -33,14 +35,16 @@ public class ArenaManager : MonoBehaviour
 
     void OnEnable()
     {
+        if(firstTime)
+        {
+            firstTime = false;
+            return;
+        }
+
         enemiesInScene.Clear();
 
-        //do nothing first time, only from second arena
-        if (redd096.GameManager.instance == null)
-            return;
-
         //create enemies list
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = transform.GetComponentsInChildren<Enemy>();
         foreach (Enemy enemy in enemies)
         {
             enemiesInScene.Add(enemy);
