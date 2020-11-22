@@ -19,8 +19,7 @@
 
         [Header("PowerUp")]
         [SerializeField] Image[] imagesForPowerUp = default;
-
-        Dictionary<PowerUp, Image> powerUps = new Dictionary<PowerUp, Image>();
+        Dictionary<PowerUp, int> powerUps = new Dictionary<PowerUp, int>(); //power up + index of imagesForPowerUp
 
         void Start()
         {
@@ -84,46 +83,73 @@
 
         public void AddPowerUp(PowerUp powerUp)
         {
-            Image image = null;
-
+            //find first image deactivate
             for(int i = 0; i < imagesForPowerUp.Length; i++)
             {
                 if (imagesForPowerUp[i].gameObject.activeInHierarchy == false)
-                    image = imagesForPowerUp[i];
+                {
+                    Image image = imagesForPowerUp[i];
+
+                    //set sprite and active image
+                    image.sprite = powerUp.SpritePowerUp;
+                    image.gameObject.SetActive(true);
+
+                    //add to dictionary, with index
+                    powerUps.Add(powerUp, i);
+
+                    break;
+                }
             }
-
-            //set image
-            image.sprite = powerUp.SpritePowerUp;
-            image.gameObject.SetActive(true);
-
-            //add to dictionary
-            powerUps.Add(powerUp, image);
         }
 
         public void RemovePowerUp(PowerUp powerUp)
         {
-            if(powerUps.ContainsKey(powerUp))
-            {
-                Image image = powerUps[powerUp];
+            if (powerUps.ContainsKey(powerUp) == false)
+                return;
 
-                //remove from dictionary
-                powerUps.Remove(powerUp);
-                image.gameObject.SetActive(false);
+            //find image in the array, using the index saved in dictionary
+            int index = powerUps[powerUp];
+
+            //deactivate image and remove from dictionary
+            imagesForPowerUp[index].gameObject.SetActive(false);
+            powerUps.Remove(powerUp);
+
+            //from this image, check if next one is active
+            for (int i = index + 1; i < imagesForPowerUp.Length; i++)
+            {
+                //if active, replace image and set again active this image and deactive next one
+                if (imagesForPowerUp[i].gameObject.activeInHierarchy)
+                {
+                    imagesForPowerUp[i - 1].sprite = imagesForPowerUp[i].sprite;
+
+                    //then set active
+                    imagesForPowerUp[i - 1].gameObject.SetActive(true);
+                    imagesForPowerUp[i].gameObject.SetActive(false);
+
+                    //update dictionary
+                    UpdateDictionary(i);
+                }
+                //if next one is not active, stop replace sprites
+                else
+                {
+                    break;
+                }
             }
 
-            for(int i = 0; i < imagesForPowerUp.Length; i++)
+        }
+
+        void UpdateDictionary(int index)
+        {
+            Dictionary<PowerUp, int> powerCopy = powerUps.CreateCopy();
+
+            //foreach index in the dictionary
+            foreach(PowerUp powerUp in powerCopy.Keys)
             {
-                if(imagesForPowerUp[i].gameObject.activeInHierarchy == false)
+                //if found index, update and stop
+                if(powerCopy[powerUp] == index)
                 {
-                    for(int j = i; j < imagesForPowerUp.Length; j++)
-                    {
-                        if(imagesForPowerUp[j].gameObject.activeInHierarchy)
-                        {
-                            imagesForPowerUp[i].sprite = imagesForPowerUp[j].sprite;
-                            imagesForPowerUp[i].gameObject.SetActive(true);
-                            imagesForPowerUp[j].gameObject.SetActive(false);
-                        }
-                    }
+                    powerUps[powerUp] = index - 1;
+                    break;
                 }
             }
         }
