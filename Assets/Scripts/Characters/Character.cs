@@ -142,6 +142,9 @@ public class Character : redd096.StateMachine
 
     public void PickBall(Ball ball)
     {
+        if (ball.gameObject.activeInHierarchy == false)
+            return;
+
         //save reference and pick ball
         currentBall = ball;
         ball.PickBall();
