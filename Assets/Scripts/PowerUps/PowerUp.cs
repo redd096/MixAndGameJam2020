@@ -36,6 +36,9 @@ public class PowerUp : ScriptableObject
             //save character reference
             this.character = character;
 
+            //remove power up from character list
+            character.RemovePowerUp(this);
+
             //active effect
             ActivateEffect();
         }
@@ -57,7 +60,6 @@ public class PowerUp : ScriptableObject
             DeactivateEffect();
 
             //remove from game
-            character.RemovePowerUp(this);
             character = null;
         }
     }
