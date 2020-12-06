@@ -56,6 +56,7 @@ public class ArenaManager : MonoBehaviour
             if(enemy.IsBoss)
             {
                 redd096.GameManager.instance.uiManager.ShowHealthBoss(true);
+                redd096.GameManager.instance.uiManager.SetHealthBoss(1);
             }
         }
 
