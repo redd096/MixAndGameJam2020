@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -78.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7444627892546709675, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
+      propertyPath: startFlip
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8002413439979042516, guid: 213a5cd9f70612a478bffc21d1580174, type: 3}
       propertyPath: m_Controller
       value: 
