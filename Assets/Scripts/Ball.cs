@@ -68,7 +68,7 @@ public class Ball : MonoBehaviour
             }
 
             //pick ball if no ball in hand
-            if (character.CurrentBall == null)
+            else if (character.CurrentBall == null)
                 character.PickBall(this);
         }
 
@@ -84,16 +84,13 @@ public class Ball : MonoBehaviour
     void RemoveBallThrowed(bool removeOwner)
     {
         //remove ball throwed
-        if (BallThrowed)
-        {
-            BallThrowed = false;
+        BallThrowed = false;
 
-            //if there is already a owner, be sure to not ignore collision with him
-            IgnoreCollision(false);
+        //if there is already a owner, be sure to not ignore collision with him
+        IgnoreCollision(false);
 
-            if (removeOwner)
-                owner = null;
-        }
+        if (removeOwner)
+            owner = null;
     }
 
     void IgnoreCollision(bool ignore)
@@ -183,6 +180,12 @@ public class Ball : MonoBehaviour
 
         //remove ball throwed
         RemoveBallThrowed(false);
+    }
+
+    public void OnHitCharacter()
+    {
+        //remove owner
+        RemoveBallThrowed(true);
     }
 
     #endregion

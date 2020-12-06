@@ -125,6 +125,8 @@ public class Character : redd096.StateMachine
 
     public virtual void HitByBall(Ball ball, bool isParryable)
     {
+        ball.OnHitCharacter();
+
         //if we have a ball in hand
         if(currentBall)
         {
