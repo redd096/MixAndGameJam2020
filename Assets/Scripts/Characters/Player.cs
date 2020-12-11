@@ -5,12 +5,9 @@ using UnityEngine;
 [AddComponentMenu("MixAndGameJam2020/Characters/Player")]
 public class Player : Character
 {
-    [Header("Dash")]
-    [SerializeField] bool canDash = true;
-    [SerializeField] float dash = 180;
-
     [Header("Parry")]
     [SerializeField] float parry = 0.2f;
+    [SerializeField] float delayParry = 0.1f;
 
     float parryTimer;
 
@@ -19,38 +16,39 @@ public class Player : Character
         base.FixedUpdate();
 
         //movement (add force, so is not related to player direction, but only input)
-        InputMovement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Movement(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     void Update()
     {
         //set player direction (if no input, is right or left. Necessary to dash or throw ball in oblique or vertical and not only right or left)
-        Vector2 playerDirection = SetPlayerDirection(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        //if can dash, dash in direction
-        if (canDash)
-        {
-            Dash(Input.GetButtonDown("Dash"), playerDirection);
-        }
+        Vector2 playerDirection = SetPlayerDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         //throw ball or parry (if ball in hand or not)
         if(currentBall)
             InputThrowBall(Input.GetButtonDown("Action"), playerDirection);
         else
             StartParryTimer(Input.GetButtonDown("Action"));
+
+        //active power up
+        ActivePowerUp(Input.GetButtonDown("Spell1"), 0);
+        ActivePowerUp(Input.GetButtonDown("Spell2"), 1);
+        ActivePowerUp(Input.GetButtonDown("Spell3"), 2);
+
+        PauseGame(Input.GetButtonDown("Pause"));
     }
 
     #region private API
 
     #region fixed update
 
-    void InputMovement(float horizontal, float vertical)
+    void Movement(float horizontal, float vertical)
     {
         //direction by input
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        //move player
-        Movement(direction);
+        //set velocity
+        rb.velocity = direction * speed;
     }
 
     #endregion
@@ -71,32 +69,34 @@ public class Player : Character
         return playerDirection;
     }
 
-    void Dash(bool inputDash, Vector2 playerDirection)
-    {
-        //if press input
-        if (inputDash)
-        {
-            //dash in direction
-            rb.AddForce(playerDirection * dash, ForceMode2D.Impulse);
-        }
-    }
-
     void InputThrowBall(bool inputThrow, Vector2 playerDirection)
     {
         //if press input throw ball and there is a ball in hand
         if (inputThrow && currentBall != null)
         {
-            ThrowBall(playerDirection);
+            ThrowBall(playerDirection, true);
         }
     }
 
     void StartParryTimer(bool inputParry)
     {
-        //if press input and no ball in hand
-        if (inputParry && currentBall == null)
+        //if press input and no ball in hand, and parry is not in delay
+        if (inputParry && currentBall == null && Time.time > parryTimer + delayParry)
         {
             //set timer parry
             parryTimer = Time.time + parry;
+        }
+    }
+
+    void PauseGame(bool inputPause)
+    {
+        //if press escape or start, pause or resume game
+        if (inputPause)
+        {
+            if (Time.timeScale <= 0)
+                redd096.SceneLoader.instance.ResumeGame();
+            else
+                redd096.SceneLoader.instance.PauseGame();
         }
     }
 
@@ -104,35 +104,41 @@ public class Player : Character
 
     #region hit by ball + parry
 
-    protected override void HitByBall(Ball ball)
+    public override void HitByBall(Ball ball, bool isParryable)
     {
-        //if parry timer and no ball in hand
-        if (Time.time < parryTimer && currentBall == null)
+        if (isParryable)
         {
-            //parry if looking in direction of the ball (right or left)
-            Vector2 direction = ball.transform.position - transform.position;
-            if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+            //if parry timer and no ball in hand
+            if (Time.time < parryTimer && currentBall == null)
             {
-                Parry(ball);
+                //parry if looking in direction of the ball (right or left)
+                Vector2 direction = ball.transform.position - transform.position;
+                if (isMovingRight && direction.x > 0 || !isMovingRight && direction.x < 0)
+                {
+                    Parry(ball);
 
-                return;
+                    return;
+                }
             }
         }
 
         //else normal hit by ball
-        base.HitByBall(ball);
-    }
-
-    void Parry(Ball ball)
-    {
-        //parry
-        ball.Parry();
-
-        //pick ball
-        PickBall(ball);
+        base.HitByBall(ball, isParryable);
     }
 
     #endregion
+
+    protected override void Die()
+    {
+        //do only one time
+        if (isDead)
+            return;
+
+        base.Die();
+
+        //invoke end game
+        redd096.GameManager.instance.Invoke("EndGame", 1);
+    }
 
     #endregion
 }

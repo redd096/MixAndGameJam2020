@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 300
-  moveWithAcceleration: 1
-  pushForce: 5
-  canDash: 1
-  dash: 180
-  parry: 0.2
+  speed: 3
+  pushForce: 1.2
+  parry: 0.1
+  delayParry: 0.2
 --- !u!61 &1740645933463379709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -75,6 +73,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c7543167dfd06b34e96cb9e0797ddd7a, type: 2}
+    - target: {fileID: 274766264804545365, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 779303661041656209, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
       value: 0
@@ -135,13 +137,33 @@ PrefabInstance:
       propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1145507413475323656, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756222530669838310, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7639466b9a6ed949a46cdeb19102682, type: 3}
+    - target: {fileID: 2422959700094307120, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
       value: Animation
       objectReference: {fileID: 0}
+    - target: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480770184656226946, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -186,6 +208,14 @@ PrefabInstance:
     - target: {fileID: 4509616448232472450, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870384716455298181, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528747615213841547, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 779303661041656209, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}

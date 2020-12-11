@@ -34,7 +34,7 @@ public class PickBall : State
         Vector2 direction = ballToReach.transform.position - enemy.transform.position;
 
         //else move to ball
-        enemy.EnemyMovement(direction.normalized);
+        enemy.Movement(direction.normalized);
     }
 
     #region private API
