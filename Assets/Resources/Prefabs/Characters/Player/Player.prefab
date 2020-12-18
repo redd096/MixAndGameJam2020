@@ -137,6 +137,18 @@ PrefabInstance:
       propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1145507413475323656, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -209,6 +221,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4574202572520366955, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+      propertyPath: spriteToChangeColorOnShield
+      value: 
+      objectReference: {fileID: 3520896362354153719}
     - target: {fileID: 4870384716455298181, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -228,5 +244,10 @@ GameObject:
 --- !u!1 &1367869537958343418 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3415739564639531586, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
+  m_PrefabInstance: {fileID: 4439567444243349688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3520896362354153719 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 954832973806835791, guid: b5631f036d5229d49a5075eb79282d7e, type: 3}
   m_PrefabInstance: {fileID: 4439567444243349688}
   m_PrefabAsset: {fileID: 0}

@@ -24,7 +24,7 @@ public class CharacterGraphics : MonoBehaviour
     [SerializeField] GameObject explosionOnDead = default;
 
     [Header("Shield")]
-    [SerializeField] GameObject shield = default;
+    [SerializeField] SpriteRenderer spriteToChangeColorOnShield = default;
 
     protected Animator anim;
     SpriteRenderer sprite;
@@ -142,9 +142,13 @@ public class CharacterGraphics : MonoBehaviour
     void OnShield(bool activate)
     {
         //activate or deactivate shield
-        if(shield)
+        if(activate)
         {
-            shield.SetActive(activate);
+            spriteToChangeColorOnShield.color = Color.magenta;
+        }
+        else
+        {
+            spriteToChangeColorOnShield.color = Color.white;
         }
     }
 
